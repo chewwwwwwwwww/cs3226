@@ -1,0 +1,47 @@
+body  {
+    background-color: #F08080;
+}
+.jumbotron  {
+    background-color: #00BFFF;
+}
+#twitch {
+    padding-left: 150px;
+}
+.jumbotron .container   {
+    font-family: Lato, serif;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.container .row {
+    font-family: 'Open Sans', serif;
+}
+.container .row h2  {
+    font-weight: bolder;
+}
+.container .row p   {
+    font-weight: normal;
+}
+#doge  {
+    height: 150px;
+    width: 150px; 
+}
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+#contact img {
+    width:  46px;
+    height: 46px;
+}
+#dotabuff img{
+    width:  40%;
+    height: auto;
+}
+#extrainfo  {
+    text-align: center;
+}

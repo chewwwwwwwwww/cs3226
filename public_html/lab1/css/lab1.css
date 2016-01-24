@@ -1,0 +1,98 @@
+body	{
+	font-family: 'McLaren', cursive;
+	background-image: url("http://bedfordbaby.co.za/wp-content/uploads/2013/01/background2.png");
+}
+
+.col-md-12 {
+	text-align: center;
+}
+h1, h2, h3 {
+	color: #33FF33;
+}
+.row	{
+	margin-top: 80px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.row img {
+	max-width:283px;
+	max-height:276px;
+	min-width:283px;
+	min-height:276px;
+}
+h1	{
+	font-weight: bold;
+	text-align: center;
+	padding-top: 10px;
+}
+h2	{
+	text-align: center;
+	padding-top: 20px;
+	
+}
+.thumbnail	{
+	position: relative;
+	border: 0;
+	box-shadow: none;
+}
+p {
+	font-size: 35px;
+	color: #FFFF33;
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	z-index: 1;
+}
+#firstleft, #secondleft, #thirdleft, #fourthleft, #fifthleft, #sixthleft {
+	margin-left: 20%;
+	float: left;
+	display: inline; 
+}
+#firstleft img, #firstright img, #secondleft img, #secondright img, #thirdleft img, #thirdright img, #fourthleft img, #fourthright img, #fifthleft img, #fifthright img, #sixthleft img, #sixthright img {
+	display: block;
+	padding-top: 50px;
+	max-width:300px;
+	max-height:160px;
+	width: auto;
+	height: auto;
+}
+#firstright, #secondright, #thirdright, #fourthright, #fifthright, #sixthright {
+	margin-right: 30%;
+	float:right;
+	display: inline; 
+}
+
+ul {
+	float:left;
+	list-style-type: none;
+	margin-top: 175px;
+	margin-left: 50px;
+	padding: 0;
+	width: 200px;
+	background-color: transparent;
+}
+li {
+	margin-top: 10px;
+}
+
+li button {
+	background-color: transparent;
+	border: none;
+	color: #7F00FF;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+}
+li button:hover {
+	background-color: #8FBC8F;
+	color: #7F00FF;
+	font-weight: bold;
+}
+
+li button:active {
+	transform: translateY(4px);
+	background-color: #8FBC8F;
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--DONE BY: BRANDON CHEW HUI TECK A0110616W -->
+<!--Elements used: html, head, meta, link, script, title, body, div, h1, h2, h3, button, p, img, ul, li, table, tr, td -->
+<!--
+Things to improve on
+1. Home Page load animation
+2. Some sort of canvas to draw lines
+3. Some response if right or wrong match
+4. Active state navbar
+5.
+-->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lab1.css">
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=McLaren'>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	
+	<title>SmartMatch</title>
+</head>
+
+<body>
+
+	<div id="homepage" class="homedisplay">
+		<div class='row'>
+			<div class='col-md-12'>
+				<h1>Welcome to SmartMatch</h1>
+				<h3>Choose the game you would like to play!</h3>
+			</div>
+		</div>
+		<div id="homenav" class="row">
+			<div class="col-md-2">
+				<button type="button" class="thumbnail pmbutton">
+					<img src="images/matchingpairs.jpg" alt="Pair Match">
+					<p>Pair Match</p>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="thumbnail afbutton">
+					<img src="images/animalfeed.jpg" alt="Animal Feed">
+					<p>Animal Feed</p>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="thumbnail ssbutton">
+					<img src="images/sneakysilhouettes.jpg" alt="Sneaky Silhouettes">
+					<p>Sneaky Silhouettes</p>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="thumbnail sssbutton">
+					<img src="images/supershapes.jpg" alt="Super Shapes">
+					<p>Super Shapes</p>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="thumbnail ccbutton">
+					<img src="images/counting.jpg" alt="Cool Counting">
+					<p>Cool Counting</p>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="thumbnail wpbutton">
+					<img src="images/wordplay.jpg" alt="Wordplay">
+					<p>Word Play</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div id="PairMatch">
+		<h1>Pair Match</h1>
+		<h2> Match the same animals together! </h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="firstleft">
+			<tr><td align="center"><img id="firstL1"></td></tr>
+			<tr><td align="center"><img id="firstL2"></td></tr>
+			<tr><td align="center"><img id="firstL3"></td></tr>
+			<tr><td align="center"><img id="firstL4"></td></tr>
+			<tr><td align="center"><img id="firstL5"></td></tr>
+		</table>
+
+		<table id="firstright">
+			<tr><td align="center"><img id="firstR1"></td></tr>
+			<tr><td align="center"><img id="firstR2"></td></tr>
+			<tr><td align="center"><img id="firstR3"></td></tr>
+			<tr><td align="center"><img id="firstR4"></td></tr>
+			<tr><td align="center"><img id="firstR5"></td></tr>
+		</table>
+	</div>
+	<div id="AnimalFeed">
+		<h1>Animal Feed</h1>
+		<h2>Let the animals eat their food!</h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="secondleft">
+			<tr><td align="center"><img id="secondL1"></td></tr>
+			<tr><td align="center"><img id="secondL2"></td></tr>
+			<tr><td align="center"><img id="secondL3"></td></tr>
+			<tr><td align="center"><img id="secondL4"></td></tr>
+		</table>
+
+		<table id="secondright">
+			<tr><td align="center"><img id="secondR1"></td></tr>
+			<tr><td align="center"><img id="secondR2"></td></tr>
+			<tr><td align="center"><img id="secondR3"></td></tr>
+			<tr><td align="center"><img id="secondR4"></td></tr>
+		</table>
+	</div>
+	<div id="SneakySilhouettes">
+		<h1>Sneaky Silhouettes</h1>
+		<h2>Pair up the silhouettes with the right person!</h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="thirdleft">
+			<tr><td align="center"><img id="thirdL1"></td></tr>
+			<tr><td align="center"><img id="thirdL2"></td></tr>
+			<tr><td align="center"><img id="thirdL3"></td></tr>
+			<tr><td align="center"><img id="thirdL4"></td></tr>
+		</table>
+
+		<table id="thirdright">
+			<tr><td align="center"><img id="thirdR1"></td></tr>
+			<tr><td align="center"><img id="thirdR2"></td></tr>
+			<tr><td align="center"><img id="thirdR3"></td></tr>
+			<tr><td align="center"><img id="thirdR4"></td></tr>
+		</table>
+	</div>
+	<div id="SuperShapes">
+		<h1>Super Shapes</h1>
+		<h2>Can you match which shapes are the same?</h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="fourthleft">
+			<tr><td align="center"><img id="fourthL1"></td></tr>
+			<tr><td align="center"><img id="fourthL2"></td></tr>
+			<tr><td align="center"><img id="fourthL3"></td></tr>
+			<tr><td align="center"><img id="fourthL4"></td></tr>
+		</table>
+
+		<table id="fourthright">
+			<tr><td align="center"><img id="fourthR1"></td></tr>
+			<tr><td align="center"><img id="fourthR2"></td></tr>
+			<tr><td align="center"><img id="fourthR3"></td></tr>
+			<tr><td align="center"><img id="fourthR4"></td></tr>
+		</table>
+	</div>
+	<div id="CoolCounting">
+		<h1>Cool Counting</h1>
+		<h2>Count the total number of dots on both die and match it with the correct number</h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="fifthleft">
+			<tr><td align="center"><img id="fifthL1"></td></tr>
+			<tr><td align="center"><img id="fifthL2"></td></tr>
+			<tr><td align="center"><img id="fifthL3"></td></tr>
+			<tr><td align="center"><img id="fifthL4"></td></tr>
+			<tr><td align="center"><img id="fifthL5"></td></tr>
+		</table>
+
+		<table id="fifthright">
+			<tr><td align="center"><img id="fifthR1"></td></tr>
+			<tr><td align="center"><img id="fifthR2"></td></tr>
+			<tr><td align="center"><img id="fifthR3"></td></tr>
+			<tr><td align="center"><img id="fifthR4"></td></tr>
+			<tr><td align="center"><img id="fifthR5"></td></tr>
+		</table>
+	</div>
+	<div id="WordPlay">
+		<h1>Word Play</h1>
+		<h2>Match the pictures with words.</h2>
+		<div class='vnavbar'>
+			<ul>
+				<li><button type="button" class="homebutton">Home</button></li>
+				<li><button type="button" class="pmbutton">Pair Match</button></li>
+				<li><button type="button" class="afbutton">Animal Feed</button></li>
+				<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>
+				<li><button type="button" class="sssbutton">Super Shapes</button></li>
+				<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				<li><button type="button" class="wpbutton">Word Play</button></li>
+			</ul>
+		</div>
+		<table id="sixthleft">
+			<tr><td align="center"><img id="sixthL1"></td></tr>
+			<tr><td align="center"><img id="sixthL2"></td></tr>
+			<tr><td align="center"><img id="sixthL3"></td></tr>
+		</table>
+
+		<table id="sixthright">
+			<tr><td align="center"><img id="sixthR1"></td></tr>
+			<tr><td align="center"><img id="sixthR2"></td></tr>
+			<tr><td align="center"><img id="sixthR3"></td></tr>
+		</table>
+	</div>
+	<script src="js/lab1.js"></script>
+</body>
+
+</html>
