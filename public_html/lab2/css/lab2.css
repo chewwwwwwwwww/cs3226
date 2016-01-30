@@ -1,0 +1,198 @@
+body	{
+	font-family: 'McLaren', cursive;
+	background-image: url("http://bedfordbaby.co.za/wp-content/uploads/2013/01/background2.png");
+}
+h1, h2, h3 {
+	text-align: center;
+	color: black;
+}
+.score {
+	display: none;
+	float: right;
+	color: black;
+	font-weight: bold;
+	margin-right: 250px;
+	margin-top: 40px;
+	font-size: 300%;
+}
+.score h2, .score h1 {
+	color: black;
+	padding-top: 0px;
+}
+.playagain {
+	margin-top: 250px;
+	margin-right: -190px;
+	font-size: 250%;
+	font-weight: bold;
+	float: right;
+	display: none;
+}
+#msg {
+	text-align: center;
+	display: none;
+}
+.welcomemsg {
+	padding-top: 80px;
+}
+.firstnum, .secondnum, .thirdnum, .fourthnum {
+	padding-right: 300px;
+}
+form {
+	text-align: center;
+	padding-top: 10px;
+}
+.vnavbar {
+	float: left;
+	padding-top: 150px;
+}
+.row	{
+	padding-left: 100px;
+	margin-top: 80px;
+	margin-left: 300px;
+	margin-right: 10px;
+}
+h1	{
+	font-weight: bold;
+	padding-top: 10px;
+}
+h2	{
+	padding-top: 20px;
+}
+.thumbnail	{
+	position: relative;
+	border: 0;
+	box-shadow: none;
+}
+#PairMatch h1, #PairMatch h2, #SuperShapes h1, #SuperShapes h2, #CoolCounting h1, #CoolCounting h2 {
+	padding-right: 250px;
+}
+p {
+	font-size: 35px;
+	color: #FFFF33;
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	z-index: 1;
+}
+table {
+	margin-left: 550px;
+}
+
+
+#first{
+	background-color: #FFFDE8;
+}
+
+#third{
+	background-color: #FFFFFF;
+}
+#fourth{
+	background-color: #FFFFFF;
+}
+
+table ul {
+	list-style-type: none;
+	margin-left: 50px;
+	padding: 0;
+	padding-left: 5px;
+	width: 200px;
+}
+li img {
+	display: block;
+	vertical-align: middle;
+	max-width:300px;
+	max-height:160px;
+	width: auto;
+	height: auto;
+	transition: transform 1s;
+}	
+.firstleft li img:hover {
+	transform: translateX(100px);
+	-webkit-filter:brightness(70%);
+}
+.firstright li img:hover {
+	transform: translateX(-100px);
+	-webkit-filter:brightness(70%);
+}
+.secondleft li img:hover {
+	transform: translateX(100px);
+	-webkit-filter:brightness(70%);
+}
+.secondright li img:hover {
+	transform: translateX(-100px);
+	-webkit-filter:brightness(70%);
+}
+.thirdleft li img:hover {
+	transform: translateX(100px);
+	-webkit-filter:brightness(70%);
+}
+.thirdright li img:hover {
+	transform: translateX(-100px);
+	-webkit-filter:brightness(70%);
+}
+.fourthleft li img:hover {
+	transform: translateX(100px);
+	-webkit-filter:brightness(70%);
+}
+.fourthright li img:hover {
+	transform: translateX(-100px);
+	-webkit-filter:brightness(70%);
+}
+.fourthleft li, .fourthright li {
+	padding-top: 5px;
+}
+.vnavbar ul {
+	float:left;
+	list-style-type: none;
+	margin-top: 175px;
+	margin-left: 50px;
+	padding: 0;
+	width: 200px;
+	background-color: transparent;
+}
+li {
+	margin-top: 10px;
+}
+li button {
+	background-color: transparent;
+	border: none;
+	color: #7F00FF;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+}
+li button:hover {
+	background-color: #FFA500;
+	color: #7F00FF;
+	font-weight: bold;
+
+}
+.active {
+	background-color: #FFA500;
+}
+.leftselected {
+	background-color: #b37500;
+	transition: transform 1s;
+	transform: translateX(100px);
+}
+.rightselected {
+	background-color: #b37500;
+	transition: transform 1s;
+	transform: translateX(-100px);
+}
+.complete	{
+	-webkit-filter: grayscale(100%) blur(4px);
+}
+.green {
+	color: #33FF33;
+}
+.red {
+	font-weight: bold;
+	color: red;
+}
+.disabled {
+	pointer-events: none;
+}

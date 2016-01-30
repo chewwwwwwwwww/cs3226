@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--DONE BY: BRANDON CHEW HUI TECK A0110616W -->
+<!--Elements used: html, head, meta, link, script, title, body, div, h1, h2, h3, button, p, img, ul, li, table, tr, td -->
+<!--
+Things to improve on
+1. Some sort of canvas to draw lines
+2. Some response if right or wrong match
+3. Active state navbar
+5.
+-->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lab2.css">
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=McLaren'>
+
+	<title>SmartMatch</title>
+</head>
+
+<body>
+
+	<div class='vnavbar'>
+		<ul>
+			<li><button type="button" class="homebutton">Home</button></li>
+			<li><button type="button" class="pmbutton">Pair Match</button></li>
+			<!--<li><button type="button" class="ssbutton">Sneaky Silhouettes</button></li>-->
+			<li><button type="button" class="sssbutton">Super Shapes</button></li>
+			<li><button type="button" class="ccbutton">Cool Counting</button></li>
+		</ul>
+	</div>
+
+	<div class='score'>
+		<h1>Score</h1>
+		<h2 id='scorenum'></h2>
+	</div>
+
+	<div class='playagain'>
+		<button id='playagain' type='button'>Play Again?</button>
+	</div>
+
+	<div class="firstnum">
+		<h1>Enter the number of items to match</h1>
+		<form id="matchnum1">
+			<input type="number" min="2" max="12" id="n1" required>
+			<button form="matchnum1" id="firstbtn" value="Submit">Play!</button>
+		</form>
+	</div>
+
+	<div class="secondnum">
+		<h1>Enter the number of items to match</h1>
+		<form id="matchnum2">
+			<input type="number" min="2" max="12" id="n2" required>
+			<button form="matchnum2" id="secondbtn" value="Submit">Play!</button>
+		</form>
+	</div>
+
+	<div class="thirdnum">
+		<h1>Enter the number of items to match</h1>
+		<form id="matchnum3">
+			<input type="number" min="2" max="12" id="n3" required>
+			<button form="matchnum3" id="thirdbtn" value="Submit">Play!</button>
+		</form>
+	</div>
+
+	<div class="fourthnum">
+		<h1>Enter the number of items to match</h1>
+		<form id="matchnum4">
+			<input type="number" min="2" max="12" id="n4" required>
+			<button form="matchnum4" id="fourthbtn" value="Submit">Play!</button>
+		</form>
+	</div>
+
+	<div id="homepage" class="homedisplay"> <!--show hide homepage but show hide .row? -->
+		<div class='welcomemsg'>
+			<h1>Welcome to SmartMatch</h1>
+			<h3>Choose the game you would like to play!</h3>
+			
+		</div>
+		<div id="homenav" class="row">
+			<div class="col-md-3">
+				<button type="button" class="thumbnail pmbutton">
+					<img src="images/matchingpairs.jpg" alt="Pair Match">
+					<p>Pair Match</p>
+				</button>
+			</div>
+			<!--<div class="col-md-3">
+				<button type="button" class="thumbnail ssbutton">
+					<img src="images/sneakysilhouettes.jpg" alt="Sneaky Silhouettes">
+					<p>Sneaky Silhouettes</p>
+				</button>
+			</div>-->
+			<div class="col-md-3">
+				<button type="button" class="thumbnail sssbutton">
+					<img src="images/shapes.jpg" alt="Super Shapes">
+					<p>Super Shapes</p>
+				</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" class="thumbnail ccbutton">
+					<img src="images/counting.jpg" alt="Cool Counting">
+					<p>Cool Counting</p>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div id="PairMatch">
+		<h1>Pair Match</h1>
+		<h2> Match the same fruits together! </h2>
+		<h3><span class="msg"></span><h3>
+
+			<table id="first">
+				<tr>
+					<td>
+						<ul class="firstleft">
+						</ul>
+					</td>
+					<td><ul></ul></td>
+					<td>
+						<ul class="firstright">
+
+						</ul>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	<!--<div id="SneakySilhouettes">
+		<h1>Sneaky Silhouettes</h1>
+		<h2>Pair up the silhouettes with the right person!</h2>
+		
+		<table id="second">
+			<tr>
+				<td>
+					<ul class="secondleft">
+					</ul>
+				</td>
+				<td><ul></ul></td>
+				<td>
+					<ul class="secondright">
+						
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</div>-->
+	<div id="SuperShapes">
+		<h1>Super Shapes</h1>
+		<h2>Can you match which shapes are the same?</h2>
+		<h3><span class="msg"></span><h3>
+		<table id="third">
+			<tr>
+				<td>
+					<ul class="thirdleft">
+					</ul>
+				</td>
+				<td><ul></ul></td>
+				<td>
+					<ul class="thirdright">
+						
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="CoolCounting">
+		<h1>Cool Counting</h1>
+		<h2>Count the minions and select the right number</h2>
+		<h3><span class="msg"></span><h3>
+		<table id="fourth">
+			<tr>
+				<td>
+					<ul class="fourthleft">
+					</ul>
+				</td>
+				<td><ul></ul></td>
+				<td>
+					<ul class="fourthright">
+						
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="js/lab2.js"></script>
+
+</body>
+
+</html>
