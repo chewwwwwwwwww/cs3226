@@ -78,7 +78,8 @@ p {
 	z-index: 1;
 }
 table {
-	margin-left: 550px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 

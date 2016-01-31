@@ -16,10 +16,6 @@ var id1 = '';
 var id2 = '';
 var timeCounter = 0;
 var timeScore = undefined;
-var shake1 = {'transform': 'translate3d(-1px, 0, 0)'};
-var shake2 = {'transform': 'translate3d(-1px, 0, 0)'};
-var shake3 = {'transform': 'translate3d(-1px, 0, 0)'};
-var shake4 = {'transform': 'translate3d(-1px, 0, 0)'};
 
 /************************************************************
 ************************ FUNCTIONS **************************
@@ -331,7 +327,9 @@ $('#firstbtn').click(generateFirstPage);
 
     $(".homebutton").click(function(){
         $('.msg').html('');
+        stopTimer();
         resetTimer();
+        lives = 3;
         score = 0;
         moves = 0;
         $("#homepage").fadeIn();
@@ -355,7 +353,9 @@ $('#firstbtn').click(generateFirstPage);
     }); 
     $(".pmbutton").click(function(){
         $('.msg').html('');
+        stopTimer();
         resetTimer();
+        lives = 3;
         score = 0;
         moves = 0;
         $('.vnavbar button').removeClass('active');
@@ -387,7 +387,9 @@ $('#firstbtn').click(generateFirstPage);
     }); 
 $(".ssbutton").click(function(){
     $('.msg').html('');
+    stopTimer();
     resetTimer();
+    lives = 3;
     score = 0;
     moves = 0;
     $('.vnavbar button').removeClass('active');
@@ -419,7 +421,9 @@ $(".ssbutton").click(function(){
 }); 
 $(".sssbutton").click(function(){
     $('.msg').html('');
+    stopTimer();
     resetTimer();
+    lives = 3;
     score = 0;
     moves = 0;
     $('.vnavbar button').removeClass('active');
@@ -451,7 +455,9 @@ $(".sssbutton").click(function(){
 }); 
 $(".ccbutton").click(function(){
     $('.msg').html('');
+    stopTimer();
     resetTimer();
+    lives = 3;
     score = 0;
     moves = 0;
     $('.vnavbar button').removeClass('active');
@@ -485,6 +491,7 @@ $(".ccbutton").click(function(){
 $('#playagain').on('click', function()    {
     $(this).hide();
     resetTimer();
+    lives = 3;
     score = 0;
     moves = 0;
     $('#livesleft').text('Lives : ' + lives);
