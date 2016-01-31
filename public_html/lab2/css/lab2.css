@@ -58,6 +58,9 @@ h1	{
 h2	{
 	padding-top: 20px;
 }
+h1 #timer {
+	padding-left: 10px;
+}
 .thumbnail	{
 	position: relative;
 	border: 0;
@@ -138,9 +141,9 @@ li img {
 	transform: translateX(-100px);
 	-webkit-filter:brightness(70%);
 }
-.fourthleft li, .fourthright li {
+/*.fourthleft li, .fourthright li {
 	padding-top: 5px;
-}
+}*/
 .vnavbar ul {
 	float:left;
 	list-style-type: none;
