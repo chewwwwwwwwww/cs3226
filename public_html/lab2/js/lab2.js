@@ -34,21 +34,23 @@ function generateFirstPage(e) {
         }
         imageListFirst = imageListFirst.concat(imageArray);
         $('.firstleft').html(listHTML);
-		random = false;
-		while(random == false)	{
-			rightImageArray = shuffleArray(imageArray);
-			random = checkRandom(imageArray, rightImageArray);
-		}
-        listHTML = '';
-        for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
-        }
-        $('.firstright').html(listHTML);
-        resizeImages();
-        startTimer();
-        $("#PairMatch").fadeIn();
+        random = false;
+        while(random == false)	{
+         rightImageArray = shuffleArray(imageArray);
+         random = checkRandom(imageArray, rightImageArray);
+     }
+     listHTML = '';
+     for(var i = 0; i < requiredMatches; i++)   {
+        listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
     }
-    
+    $('.firstright').html(listHTML);
+    resizeImages();
+    startTimer();
+    $('#refresher').fadeIn();
+    $('#refresher').css('display', 'inline-block');
+    $("#PairMatch").fadeIn();
+}
+
 }
 
 /*function generateSecondPage(e) {
@@ -75,6 +77,8 @@ function generateFirstPage(e) {
     $('.secondright').html(listHTML);
     resizeImages();
     startTimer();
+    $('#refresher').fadeIn();
+    $('#refresher').css('display', 'inline-block');
     $("#SneakySilhouettes").fadeIn();
 }
 
@@ -92,31 +96,33 @@ function generateThirdPage(e) {
         }
         imageListThird = imageListThird.concat(imageArray);
         $('.thirdleft').html(listHTML);
-		random = false;
-		while(random == false)	{
-			rightImageArray = shuffleArray(imageArray);
-			random = checkRandom(imageArray, rightImageArray);
-		}
-        listHTML = '';
-        for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
-        }
-        $('.thirdright').html(listHTML);
-        resizeImages();
-        startTimer();
-        $("#SuperShapes").fadeIn();
+        random = false;
+        while(random == false)	{
+         rightImageArray = shuffleArray(imageArray);
+         random = checkRandom(imageArray, rightImageArray);
+     }
+     listHTML = '';
+     for(var i = 0; i < requiredMatches; i++)   {
+        listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
     }
-    
+    $('.thirdright').html(listHTML);
+    resizeImages();
+    startTimer();
+    $('#refresher').fadeIn();
+    $('#refresher').css('display', 'inline-block');
+    $("#SuperShapes").fadeIn();
+}
+
 }
 
 function generateFourthPage(e) {
     requiredMatches = $('#n4').val();
     if(requiredMatches >=2 && requiredMatches <= 12) {
-       e.preventDefault();
-       $('.fourthnum').hide();
-       var listHTML = '';
-       imageArray = randomImages(imageListFourth, requiredMatches);
-       for(var i = 0; i < requiredMatches; i++)   {
+     e.preventDefault();
+     $('.fourthnum').hide();
+     var listHTML = '';
+     imageArray = randomImages(imageListFourth, requiredMatches);
+     for(var i = 0; i < requiredMatches; i++)   {
         listHTML += '<li><img src="' + imageArray[i] + '"></li>';
     }
     imageListFourth = imageListFourth.concat(imageArray);
@@ -129,6 +135,8 @@ function generateFourthPage(e) {
     $('.fourthright').html(listHTML);
     resizeImages();
     startTimer();
+    $('#refresher').fadeIn();
+    $('#refresher').css('display', 'inline-block');
     $("#CoolCounting").fadeIn();
 }
 
@@ -167,7 +175,7 @@ function shuffleArray(tableName) {
 	}
     for (var i = tableName.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
-		var temp = tableToReturn[i];
+        var temp = tableToReturn[i];
         tableToReturn[i] = tableToReturn[j];
         tableToReturn[j] = temp;
     }
@@ -323,6 +331,21 @@ function gameLost() {
         lives = 3;
     }
 
+    function refreshHearts() {
+        if(lives == 3) {
+            $('.glyphicon-heart').fadeIn();
+        }
+        if(lives == 2) {
+            $('#heart3').fadeOut();
+        }
+        if(lives == 1) {
+            $('#heart2').fadeOut();
+        }
+        if(lives == 0) {
+            $('#heart1').fadeOut();
+        }
+    }
+
 /*function hideDescription()  {
     if(id1.closest('div').attr('id') == "PairMatch")    {
         $('#PairMatch .description').hide();
@@ -402,6 +425,7 @@ $('#firstbtn').click(generateFirstPage);
         $('.vnavbar').hide();
         $('.firstnum').hide();
         $(".row").hide();
+        $("#PairMatch").hide();
         $("#SneakySilhouettes").hide();
         $("#SuperShapes").hide();
         $("#CoolCounting").hide();
@@ -412,17 +436,22 @@ $('#firstbtn').click(generateFirstPage);
         $('.thirdnum').hide();
         $('.fourthnum').hide();
         $('.playagain').fadeIn();
-        $('#playagain').hide();        
-        $('.timerdiv').fadeIn();
+        $('#playagain').hide();  
+        $('#timer').hide();      
+        $('#timer').fadeIn();
         $('#scorenum').text(score+"/"+moves);
+        $('.score').hide();
+        $('#refresher').hide();
+        $('.lives').hide();
+        $('.lives').fadeIn();
         $('.score').fadeIn();
+        refreshHearts();
         $('li img').removeClass('disabled');
         $('.ssbutton').prop('disabled', false);
         $('.sssbutton').prop('disabled', false);
         $('.ccbutton').prop('disabled', false);
         $('.pmbutton').prop('disabled', true);
         $('#timer').text(timeCounter + " seconds");
-        $('#livesleft').text('Lives : ' + lives);
     }); 
 $(".ssbutton").click(function(){
     $('.msg').html('');
@@ -437,6 +466,7 @@ $(".ssbutton").click(function(){
     $('.secondnum').hide();
     $(".row").hide();
     $("#PairMatch").hide();
+    $("#SneakySilhouettes").hide();
     $("#SuperShapes").hide();
     $("#CoolCounting").hide();
     $('#homepage').hide();
@@ -446,17 +476,22 @@ $(".ssbutton").click(function(){
     $('.thirdnum').hide();
     $('.fourthnum').hide();
     $('.playagain').fadeIn();
-    $('#playagain').hide();        
-    $('.timerdiv').fadeIn();
+    $('#playagain').hide();    
+    $('#timer').hide();    
+    $('#timer').fadeIn();
     $('#scorenum').text(score+"/"+moves);
+    $('.score').hide();
+    $('#refresher').hide();
+    $('.lives').hide();
+    $('.lives').fadeIn();
     $('.score').fadeIn();
+    refreshHearts();
     $('li img').removeClass('disabled');
     $('.ssbutton').prop('disabled', true);
     $('.pmbutton').prop('disabled', false);
     $('.sssbutton').prop('disabled', false);
     $('.ccbutton').prop('disabled', false);
     $('#timer').text(timeCounter + " seconds");
-    $('#livesleft').text('Lives : ' + lives);
 }); 
 $(".sssbutton").click(function(){
     $('.msg').html('');
@@ -472,6 +507,7 @@ $(".sssbutton").click(function(){
     $(".row").hide();
     $("#PairMatch").hide();
     $("#SneakySilhouettes").hide();
+    $("#SuperShapes").hide();
     $("#CoolCounting").hide();
     $('#homepage').hide();
     $('.vnavbar').fadeIn();
@@ -480,17 +516,22 @@ $(".sssbutton").click(function(){
     $('.thirdnum').fadeIn();
     $('.fourthnum').hide();
     $('.playagain').fadeIn();
-    $('#playagain').hide();        
-    $('.timerdiv').fadeIn();
+    $('#playagain').hide(); 
+    $('#timer').hide();       
+    $('#timer').fadeIn();
     $('#scorenum').text(score+"/"+moves);
+    $('.score').hide();
+    $('#refresher').hide();
+    $('.lives').hide();
+    $('.lives').fadeIn();
     $('.score').fadeIn();
+    refreshHearts();
     $('li img').removeClass('disabled');
     $('.sssbutton').prop('disabled', true);
     $('.ssbutton').prop('disabled', false);
     $('.pmbutton').prop('disabled', false);
     $('.ccbutton').prop('disabled', false);
     $('#timer').text(timeCounter + " seconds");
-    $('#livesleft').text('Lives : ' + lives);
 }); 
 $(".ccbutton").click(function(){
     $('.msg').html('');
@@ -507,6 +548,7 @@ $(".ccbutton").click(function(){
     $("#PairMatch").hide();
     $("#SneakySilhouettes").hide();
     $("#SuperShapes").hide();
+    $("#CoolCounting").hide();
     $('#homepage').hide();
     $('.vnavbar').fadeIn();
     $('.firstnum').hide();
@@ -515,16 +557,21 @@ $(".ccbutton").click(function(){
     $('.fourthnum').fadeIn();
     $('.playagain').fadeIn();
     $('#playagain').hide();        
-    $('.timerdiv').fadeIn();
-    $('#scorenum').text(score+"/"+moves);
+    $('#timer').hide();
+    $('#timer').fadeIn();
+    $('#scorenum').text(score+"/"+moves);    
+    $('.score').hide();
+    $('#refresher').hide();
+    $('.lives').hide();
+    $('.lives').fadeIn();
     $('.score').fadeIn();
+    refreshHearts();
     $('li img').removeClass('disabled');
     $('.ccbutton').prop('disabled', true);
     $('.ssbutton').prop('disabled', false);
     $('.sssbutton').prop('disabled', false);
     $('.pmbutton').prop('disabled', false);
     $('#timer').text(timeCounter + " seconds");
-    $('#livesleft').text('Lives : ' + lives);
 }); 
 
 $('#playagain').on('click', function()    {
@@ -533,13 +580,20 @@ $('#playagain').on('click', function()    {
     lives = 3;
     score = 0;
     moves = 0;
-    $('#livesleft').text('Lives : ' + lives);
+    refreshHearts();
     $('#scorenum').text(score+"/"+moves);
     $('li img').removeClass('disabled');
     $('.msg').html('');
     $('#PairMatch').hide();
     $("#SuperShapes").hide();
     $("#CoolCounting").hide();
+    $('.score').hide();
+    $('#refresher').hide();
+    $('#timer').hide();
+    $('#timer').fadeIn();
+    $('.lives').hide();
+    $('.lives').fadeIn();
+    $('.score').fadeIn();
     if($('.pmbutton').prop("disabled"))   {
         $('.firstnum').fadeIn();
     }
@@ -549,6 +603,19 @@ $('#playagain').on('click', function()    {
     else if($('.ccbutton').prop("disabled")) {
         $('.fourthnum').fadeIn();
     }
+});
+
+$('#refresher').on('click', function()  {
+    if($('.pmbutton').prop("disabled"))   {
+        $('.pmbutton').trigger('click');
+    }
+    else if($('.sssbutton').prop("disabled")) {
+        $('.sssbutton').trigger('click');
+    }
+    else if($('.ccbutton').prop("disabled")) {
+        $('.ccbutton').trigger('click');
+    }
+
 });
 
 /************************************************************
@@ -564,74 +631,74 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-		id2 = $(this);
+        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
         }
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
+         moves++;
+         lives--;
+         $('.lives').effect("shake", {times:3}, 600);
+         refreshHearts();
+         if(lives == 0)  {
+            gameLost();
+            return;
         }
-        else if(id1.attr('src') != id2.attr('src')) {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('INCORRECT MATCH');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-        }
-        else    {
-			moves++;
-            score++;
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('CORRECT MATCH');
-            $('.msg').removeClass('red');
-            $('.msg').addClass('green');
-            $('.msg').fadeIn();
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-            requiredMatches--;
-        }
+        $('#scorenum').text(score+"/"+moves);
+        $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
+        $('.msg').addClass('red');
+        $('.msg').fadeIn();
+        id1.removeClass('leftselected');
+        id1.removeClass('rightselected');
+        id2.removeClass('leftselected');
+        id2.removeClass('rightselected');
     }
-    if(requiredMatches == 0)    {
-        stopTimer();
-        $('#playagain').fadeIn();
-        $('.msg').html('CONGRATULATIONS!');
-        $('.msg').removeClass('red');
-        $('.msg').addClass('green');
+    else if(id1.attr('src') != id2.attr('src')) {
+     moves++;
+     lives--;
+     $('.lives').effect("shake", {times:3}, 600);
+     refreshHearts();
+     if(lives == 0)  {
+        gameLost();
+        return;
     }
+    $('#scorenum').text(score+"/"+moves);
+    $('.msg').html('INCORRECT MATCH');
+    $('.msg').removeClass('green');
+    $('.msg').addClass('red');
+    $('.msg').fadeIn();
+    id1.removeClass('leftselected');
+    id1.removeClass('rightselected');
+    id2.removeClass('leftselected');
+    id2.removeClass('rightselected');
+}
+else    {
+ moves++;
+ score++;
+ $('#scorenum').text(score+"/"+moves);
+ $('.msg').html('CORRECT MATCH');
+ $('.msg').removeClass('red');
+ $('.msg').addClass('green');
+ $('.msg').fadeIn();
+ id1.addClass('complete');
+ id2.addClass('complete');
+ id1.addClass('disabled');
+ id2.addClass('disabled');
+ id1.removeClass('leftselected');
+ id1.removeClass('rightselected');
+ id2.removeClass('leftselected');
+ id2.removeClass('rightselected');
+ requiredMatches--;
+}
+}
+if(requiredMatches == 0)    {
+    stopTimer();
+    $('#playagain').fadeIn();
+    $('.msg').html('CONGRATULATIONS!');
+    $('.msg').removeClass('red');
+    $('.msg').addClass('green');
+}
 });
 
 //RIGHT TABLE FOR PAIR MATCH AND SUPER SHAPES
@@ -643,73 +710,73 @@ $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-		id2 = $(this);
+        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
         }
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('rightselected');
-            id2.removeClass('rightselected');
+         moves++;
+         lives--;
+         $('.lives').effect("shake", {times:3}, 600);
+         refreshHearts();
+         if(lives == 0)  {
+            gameLost();
+            return;
         }
-        else if(id1.attr('src') != id2.attr('src')) {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('INCORRECT MATCH');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-        }
-        else    {
-			moves++;
-            score++;
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('CORRECT MATCH');
-            $('.msg').removeClass('red');
-            $('.msg').addClass('green');
-            $('.msg').fadeIn();
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-            requiredMatches--;
-        }
+        $('#scorenum').text(score+"/"+moves);
+        $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
+        $('.msg').removeClass('green');
+        $('.msg').addClass('red');
+        $('.msg').fadeIn();
+        id1.removeClass('rightselected');
+        id2.removeClass('rightselected');
     }
-    if(requiredMatches == 0)    {
-        stopTimer();
-        $('#playagain').fadeIn();
-        $('.msg').html('CONGRATULATIONS!');
-        $('.msg').removeClass('red');
-        $('.msg').addClass('green');
+    else if(id1.attr('src') != id2.attr('src')) {
+     moves++;
+     lives--;
+     $('.lives').effect("shake", {times:3}, 600);
+     refreshHearts();
+     if(lives == 0)  {
+        gameLost();
+        return;
     }
+    $('#scorenum').text(score+"/"+moves);
+    $('.msg').html('INCORRECT MATCH');
+    $('.msg').removeClass('green');
+    $('.msg').addClass('red');
+    $('.msg').fadeIn();
+    id1.removeClass('leftselected');
+    id1.removeClass('rightselected');
+    id2.removeClass('leftselected');
+    id2.removeClass('rightselected');
+}
+else    {
+ moves++;
+ score++;
+ $('#scorenum').text(score+"/"+moves);
+ $('.msg').html('CORRECT MATCH');
+ $('.msg').removeClass('red');
+ $('.msg').addClass('green');
+ $('.msg').fadeIn();
+ id1.addClass('complete');
+ id2.addClass('complete');
+ id1.addClass('disabled');
+ id2.addClass('disabled');
+ id1.removeClass('leftselected');
+ id1.removeClass('rightselected');
+ id2.removeClass('leftselected');
+ id2.removeClass('rightselected');
+ requiredMatches--;
+}
+}
+if(requiredMatches == 0)    {
+    stopTimer();
+    $('#playagain').fadeIn();
+    $('.msg').html('CONGRATULATIONS!');
+    $('.msg').removeClass('red');
+    $('.msg').addClass('green');
+}
 });
 
 //LEFT TABLE FOR COOL COUNTING
@@ -721,74 +788,74 @@ $('.fourthleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-		id2 = $(this);
+        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
         }        
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
+         moves++;
+         lives--;
+         $('.lives').effect("shake", {times:3}, 600);
+         refreshHearts();
+         if(lives == 0)  {
+            gameLost();
+            return;
         }
-        else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('INCORRECT MATCH');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-        }
-        else    {
-			moves++;
-            score++;
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('CORRECT MATCH');
-            $('.msg').removeClass('red');
-            $('.msg').addClass('green');
-            $('.msg').fadeIn();
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-            requiredMatches--;
-        }
+        $('#scorenum').text(score+"/"+moves);
+        $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
+        $('.msg').addClass('red');
+        $('.msg').fadeIn();
+        id1.removeClass('leftselected');
+        id1.removeClass('rightselected');
+        id2.removeClass('leftselected');
+        id2.removeClass('rightselected');
     }
-    if(requiredMatches == 0)    {
-        stopTimer();
-        $('#playagain').fadeIn();
-        $('.msg').html('CONGRATULATIONS!');
-        $('.msg').removeClass('red');
-        $('.msg').addClass('green');
+    else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
+     moves++;
+     lives--;
+     $('.lives').effect("shake", {times:3}, 600);
+     refreshHearts();
+     if(lives == 0)  {
+        gameLost();
+        return;
     }
+    $('#scorenum').text(score+"/"+moves);
+    $('.msg').html('INCORRECT MATCH');
+    $('.msg').removeClass('green');
+    $('.msg').addClass('red');
+    $('.msg').fadeIn();
+    id1.removeClass('leftselected');
+    id1.removeClass('rightselected');
+    id2.removeClass('leftselected');
+    id2.removeClass('rightselected');
+}
+else    {
+ moves++;
+ score++;
+ $('#scorenum').text(score+"/"+moves);
+ $('.msg').html('CORRECT MATCH');
+ $('.msg').removeClass('red');
+ $('.msg').addClass('green');
+ $('.msg').fadeIn();
+ id1.addClass('complete');
+ id2.addClass('complete');
+ id1.addClass('disabled');
+ id2.addClass('disabled');
+ id1.removeClass('leftselected');
+ id1.removeClass('rightselected');
+ id2.removeClass('leftselected');
+ id2.removeClass('rightselected');
+ requiredMatches--;
+}
+}
+if(requiredMatches == 0)    {
+    stopTimer();
+    $('#playagain').fadeIn();
+    $('.msg').html('CONGRATULATIONS!');
+    $('.msg').removeClass('red');
+    $('.msg').addClass('green');
+}
 });
 
 //RIGHT TABLE FOR COOL COUNTING
@@ -800,73 +867,73 @@ $('.fourthright').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-		id2 = $(this);
+        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
         }         
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('rightselected');
-            id2.removeClass('rightselected');
+         moves++;
+         lives--;
+         $('.lives').effect("shake", {times:3}, 600);
+         refreshHearts();
+         if(lives == 0)  {
+            gameLost();
+            return;
         }
-        else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
-			moves++;
-            lives--;
-            $('#livesleft').effect("shake", {times:3}, 600);
-            $('#livesleft').text('Lives : ' + lives);
-            if(lives == 0)  {
-                gameLost();
-                return;
-            }
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('INCORRECT MATCH');
-            $('.msg').removeClass('green');
-            $('.msg').addClass('red');
-            $('.msg').fadeIn();
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-        }
-        else    {
-			moves++;
-            score++;
-            $('#scorenum').text(score+"/"+moves);
-            $('.msg').html('CORRECT MATCH');
-            $('.msg').removeClass('red');
-            $('.msg').addClass('green');
-            $('.msg').fadeIn();
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            id1.removeClass('leftselected');
-            id1.removeClass('rightselected');
-            id2.removeClass('leftselected');
-            id2.removeClass('rightselected');
-            requiredMatches--;
-        }
+        $('#scorenum').text(score+"/"+moves);
+        $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
+        $('.msg').removeClass('green');
+        $('.msg').addClass('red');
+        $('.msg').fadeIn();
+        id1.removeClass('rightselected');
+        id2.removeClass('rightselected');
     }
-    if(requiredMatches == 0)    {
-        stopTimer();
-        $('#playagain').fadeIn();
-        $('.msg').html('CONGRATULATIONS!');
-        $('.msg').removeClass('red');
-        $('.msg').addClass('green');
+    else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
+     moves++;
+     lives--;
+     $('.lives').effect("shake", {times:3}, 600);
+     refreshHearts();
+     if(lives == 0)  {
+        gameLost();
+        return;
     }
+    $('#scorenum').text(score+"/"+moves);
+    $('.msg').html('INCORRECT MATCH');
+    $('.msg').removeClass('green');
+    $('.msg').addClass('red');
+    $('.msg').fadeIn();
+    id1.removeClass('leftselected');
+    id1.removeClass('rightselected');
+    id2.removeClass('leftselected');
+    id2.removeClass('rightselected');
+}
+else    {
+ moves++;
+ score++;
+ $('#scorenum').text(score+"/"+moves);
+ $('.msg').html('CORRECT MATCH');
+ $('.msg').removeClass('red');
+ $('.msg').addClass('green');
+ $('.msg').fadeIn();
+ id1.addClass('complete');
+ id2.addClass('complete');
+ id1.addClass('disabled');
+ id2.addClass('disabled');
+ id1.removeClass('leftselected');
+ id1.removeClass('rightselected');
+ id2.removeClass('leftselected');
+ id2.removeClass('rightselected');
+ requiredMatches--;
+}
+}
+if(requiredMatches == 0)    {
+    stopTimer();
+    $('#playagain').fadeIn();
+    $('.msg').html('CONGRATULATIONS!');
+    $('.msg').removeClass('red');
+    $('.msg').addClass('green');
+}
 });
 
 });
