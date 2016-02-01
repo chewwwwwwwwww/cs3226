@@ -516,6 +516,7 @@ $('#playagain').on('click', function()    {
 ************************ TABLE BUTTONS **********************
 ************************************************************/
 
+//LEFT TABLE FOR PAIR MATCH AND SUPER SHAPES
 $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
     $(this).toggleClass('leftselected');
     count++;
@@ -524,6 +525,10 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
+        if(id1 = $(this))   {
+            $(this).removeClass('leftselected');
+            return;
+        }
         moves++;
         id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
@@ -588,15 +593,19 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
     }
 });
 
+//RIGHT TABLE FOR PAIR MATCH AND SUPER SHAPES
 $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
     $(this).toggleClass('rightselected');
-    $('#livesleft').removeClass('incorrect');
     count++;
     if(count == 1)  {
         id1 = $(this);
     }
     if(count == 2)  {
         count = 0;
+        if(id1 = $(this))   {
+            $(this).removeClass('rightselected');
+            return;
+        }
         moves++;
         id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
@@ -660,6 +669,7 @@ $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
     }
 });
 
+//LEFT TABLE FOR COOL COUNTING
 $('.fourthleft').on('click', 'img', function()   {
     $(this).toggleClass('leftselected');
     count++;
@@ -668,6 +678,10 @@ $('.fourthleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
+        if(id1 = $(this))   {
+            $(this).removeClass('leftselected');
+            return;
+        }
         moves++;
         id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
@@ -732,6 +746,7 @@ $('.fourthleft').on('click', 'img', function()   {
     }
 });
 
+//RIGHT TABLE FOR COOL COUNTING
 $('.fourthright').on('click', 'img', function()   {
     $(this).toggleClass('rightselected');
     count++;
@@ -740,6 +755,10 @@ $('.fourthright').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
+        if(id1 = $(this))   {
+            $(this).removeClass('rightselected');
+            return;
+        }
         moves++;
         id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
