@@ -588,7 +588,6 @@ $('#playagain').on('click', function()    {
     $("#SuperShapes").hide();
     $("#CoolCounting").hide();
     $('.score').hide();
-    $('#refresher').hide();
     $('#timer').hide();
     $('#timer').fadeIn();
     $('.lives').hide();
@@ -694,6 +693,7 @@ else    {
 }
 if(requiredMatches == 0)    {
     stopTimer();
+    $('#refresher').fadeOut();
     $('#playagain').fadeIn();
     $('.msg').html('CONGRATULATIONS!');
     $('.msg').removeClass('red');
@@ -772,6 +772,7 @@ else    {
 }
 if(requiredMatches == 0)    {
     stopTimer();
+    $('#refresher').fadeOut();
     $('#playagain').fadeIn();
     $('.msg').html('CONGRATULATIONS!');
     $('.msg').removeClass('red');
@@ -851,6 +852,7 @@ else    {
 }
 if(requiredMatches == 0)    {
     stopTimer();
+    $('#refresher').fadeOut();
     $('#playagain').fadeIn();
     $('.msg').html('CONGRATULATIONS!');
     $('.msg').removeClass('red');
@@ -929,6 +931,7 @@ else    {
 }
 if(requiredMatches == 0)    {
     stopTimer();
+    $('#refresher').fadeOut();
     $('#playagain').fadeIn();
     $('.msg').html('CONGRATULATIONS!');
     $('.msg').removeClass('red');
