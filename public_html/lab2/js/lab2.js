@@ -16,6 +16,7 @@ var id1 = '';
 var id2 = '';
 var timeCounter = 0;
 var timeScore = undefined;
+var random = false;
 
 /************************************************************
 ************************ FUNCTIONS **************************
@@ -33,9 +34,14 @@ function generateFirstPage(e) {
         }
         imageListFirst = imageListFirst.concat(imageArray);
         $('.firstleft').html(listHTML);
+		random = false;
+		while(random == false)	{
+			rightImageArray = shuffleArray(imageArray);
+			random = checkRandom(imageArray, rightImageArray);
+		}
         listHTML = '';
         for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + randomize(imageArray) + '"></li>';
+            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
         }
         $('.firstright').html(listHTML);
         resizeImages();
@@ -57,10 +63,15 @@ function generateFirstPage(e) {
     }
     imageListSecond = imageListSecond.concat(imageArray);
     $('.secondleft').html(listHTML);
-    listHTML = '';
-    for(var i = 0; i < requiredMatches; i++)   {
-        listHTML += '<li><img src="' + randomize(imageArray) + '"></li>';
-    }
+	random = false;
+		while(random == false)	{
+			rightImageArray = shuffleArray(imageArray);
+			random = checkRandom(imageArray, rightImageArray);
+		}
+        listHTML = '';
+        for(var i = 0; i < requiredMatches; i++)   {
+            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
+        }
     $('.secondright').html(listHTML);
     resizeImages();
     startTimer();
@@ -81,9 +92,14 @@ function generateThirdPage(e) {
         }
         imageListThird = imageListThird.concat(imageArray);
         $('.thirdleft').html(listHTML);
+		random = false;
+		while(random == false)	{
+			rightImageArray = shuffleArray(imageArray);
+			random = checkRandom(imageArray, rightImageArray);
+		}
         listHTML = '';
         for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + randomize(imageArray) + '"></li>';
+            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
         }
         $('.thirdright').html(listHTML);
         resizeImages();
@@ -118,6 +134,15 @@ function generateFourthPage(e) {
 
 }
 
+function checkRandom(left, right)	{
+	for(var i = 0; i < requiredMatches; i++)	{
+		if(left[i] == right[i])	{
+			return false;
+		}
+	}
+	return true;
+}
+
 function randomImages(tableName, num) {
     var imagesToReturn = [];
     for(; num > 0; num--)   {
@@ -133,6 +158,20 @@ function randomize(tableName) {
     imageToReturn = tableName[imageNumber];
     tableName.splice(imageNumber, 1);
     return imageToReturn;
+}
+
+function shuffleArray(tableName) {
+	var tableToReturn = [];
+	for(var i = 0; i < tableName.length; i++)	{
+		tableToReturn.push(tableName[i]);
+	}
+    for (var i = tableName.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+		var temp = tableToReturn[i];
+        tableToReturn[i] = tableToReturn[j];
+        tableToReturn[j] = temp;
+    }
+    return tableToReturn;
 }
 
 function matchPictures(images)  {
@@ -525,13 +564,13 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-        if(id1 = $(this))   {
+		id2 = $(this);
+        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
         }
-        moves++;
-        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -549,6 +588,7 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else if(id1.attr('src') != id2.attr('src')) {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -567,6 +607,7 @@ $('.firstleft, .secondleft, .thirdleft').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else    {
+			moves++;
             score++;
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('CORRECT MATCH');
@@ -602,13 +643,13 @@ $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-        if(id1 = $(this))   {
-            $(this).removeClass('rightselected');
+		id2 = $(this);
+        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
+            $(this).removeClass('leftselected');
             return;
         }
-        moves++;
-        id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -625,6 +666,7 @@ $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else if(id1.attr('src') != id2.attr('src')) {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -643,6 +685,7 @@ $('.firstright, .secondright, .thirdright').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else    {
+			moves++;
             score++;
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('CORRECT MATCH');
@@ -678,13 +721,13 @@ $('.fourthleft').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-        if(id1 = $(this))   {
+		id2 = $(this);
+        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             $(this).removeClass('leftselected');
             return;
-        }
-        moves++;
-        id2 = $(this);
+        }        
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -702,6 +745,7 @@ $('.fourthleft').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
+			moves++;
             lives--;
             $('#livesleft').effect("shake", {times:3}, 600);
             $('#livesleft').text('Lives : ' + lives);
@@ -720,6 +764,7 @@ $('.fourthleft').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else    {
+			moves++;
             score++;
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('CORRECT MATCH');
@@ -755,13 +800,20 @@ $('.fourthright').on('click', 'img', function()   {
     }
     if(count == 2)  {
         count = 0;
-        if(id1 = $(this))   {
-            $(this).removeClass('rightselected');
+		id2 = $(this);
+        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
+            $(this).removeClass('leftselected');
             return;
-        }
-        moves++;
-        id2 = $(this);
+        }         
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
+			moves++;
+            lives--;
+            $('#livesleft').effect("shake", {times:3}, 600);
+            $('#livesleft').text('Lives : ' + lives);
+            if(lives == 0)  {
+                gameLost();
+                return;
+            }
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('ERROR: SELECT ONE FROM EACH SIDE!');
             $('.msg').removeClass('green');
@@ -771,6 +823,14 @@ $('.fourthright').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
+			moves++;
+            lives--;
+            $('#livesleft').effect("shake", {times:3}, 600);
+            $('#livesleft').text('Lives : ' + lives);
+            if(lives == 0)  {
+                gameLost();
+                return;
+            }
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('INCORRECT MATCH');
             $('.msg').removeClass('green');
@@ -782,6 +842,7 @@ $('.fourthright').on('click', 'img', function()   {
             id2.removeClass('rightselected');
         }
         else    {
+			moves++;
             score++;
             $('#scorenum').text(score+"/"+moves);
             $('.msg').html('CORRECT MATCH');
