@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--DONE BY: BRANDON CHEW HUI TECK A0110616W 
+Things to improve on
+1. Some sort of canvas to draw lines
+2. Reduce global variables
+3.
+Questions
+1. Show/hide homepage doesn't show/hide everything inside but show/hide .row does?
+2. How to get silhouette of image?
+3. How to reduce global variables?
+4. 
+
+-->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lab3.css">
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=McLaren'>
+	<link rel="icon" href="images/3.ico">
+	<title>SmartMatch</title>
+</head>
+
+<body>
+
+	<div class='row'>
+		<div class='navbar navbar-default navbar-static-top'>
+			<div class='container'>
+				<div class='navbar-header'>
+					<a href='#' class='navbar-brand'>SmartMatch</a>
+					<button type='button' id='navbutton' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+						<span class='sr-only'>Toggle Navigation</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+				</div>
+				<ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
+					<li><button type="button" class="homebutton">Home</button></li>
+					<li><button type="button" class="pmbutton">Pair Match</button></li>
+					<li><button type="button" class="ssbutton">Super Shapes</button></li>
+					<li><button type="button" class="ccbutton">Cool Counting</button></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="error message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3 class='errormsg'></h3>
+	</div>
+
+	<div class="warning message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3>Wait, I must warn you! Choose one from each side!</h3>
+	</div>
+
+	<div class="success message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3 class='successmsg'></h3>
+	</div>
+
+	<div class="col-sm-12">
+		<div class="firstnum">
+			<h1>Enter the number of items to match</h1>
+			<form id="matchnum1">
+				<input type="number" min="2" max="12" id="n1" required>
+				<button form="matchnum1" id="firstbtn" value="Submit">Play!</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="secondnum">
+			<h1>Enter the number of items to match</h1>
+			<form id="matchnum2">
+				<input type="number" min="2" max="12" id="n2" required>
+				<button form="matchnum2" id="secondbtn" value="Submit">Play!</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="thirdnum">
+			<h1>Enter the number of items to match</h1>
+			<form id="matchnum3">
+				<input type="number" min="2" max="12" id="n3" required>
+				<button form="matchnum3" id="thirdbtn" value="Submit">Play!</button>
+			</form>
+		</div>
+	</div>
+	<div id="homepage" class="homedisplay"> 
+		<div class="col-sm-12">			
+			<div class='welcomemsg'>
+				<h1 class='hidden-xs'>Welcome to SmartMatch</h1>
+				<h3>Choose the game you would like to play!</h3><br><br>
+				
+
+			</div>
+		</div>
+
+		<div id="homenav" class="container">
+			<div class='row'>
+				<div class="col-xs-12 col-sm-4">
+					<button type="button" class="thumbnail pmbutton">
+						<img src="images/matchingpairs.jpg" alt="Pair Match">
+						<div class="caption hidden-xs">
+							<p>Pair Match</p>
+						</div>
+					</button>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<button type="button" class="thumbnail ssbutton">
+						<img src="images/shapes.jpg" alt="Super Shapes">
+						<div class="caption hidden-xs">
+							<p>Super Shapes</p>
+						</div>
+					</button>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<button type="button" class="thumbnail ccbutton">
+						<img src="images/counting.jpg" alt="Cool Counting">
+						<div class="caption hidden-xs">
+							<p>Cool Counting</p>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+		<footer class='footer hidden-xs'>
+			<p>Credits to <a href='http://www.freepik.com/free-vector/funny-fruits_787429.htm'>Pair Match,</a> <a href='http://www.freepik.com/free-vector/colorful-badges_795124.htm'>Super Shapes</a> and <a href='http://www.vecteezy.com/vector-art/99213-minions-coloring'>Cool Counting</a> images.</p>
+		</footer>
+	</div>
+
+	
+	<div id="PairMatch">
+		<div class='row'>
+			<div class='col-sm-12'>
+				<i class='glyphicon glyphicon-refresh refresher'></i>
+				<div class='playagain'>
+					<button type='button'>Play Again?</button>
+				</div>
+				<h2 class='description'>Match the same fruits together</h2>
+			</div>
+		</div>
+
+		<div class='row vertical'>
+			<div class='col-sm-12'>
+				<table class="first">
+					<tr>
+						<td>
+							<ul class="firstleft">
+							</ul>
+						</td>
+						<td><canvas id="canvas1" resize ></canvas></td>
+						<td>
+							<ul class="firstright">
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+
+		<div class='tableh first'>
+			<ul class="horizontal firstleft">
+			</ul>
+			<div><canvas id="canvas1h" resize ></canvas></div>
+			<ul class="horizontal firstright">
+			</ul>
+		</div>	
+	</div>
+
+	<div id="SuperShapes">
+		<div class='row'>
+			<div class='col-sm-12'>
+				<i class='glyphicon glyphicon-refresh refresher'></i>
+				<div class='playagain'>
+					<button type='button'>Play Again?</button>
+				</div>
+				<h2 class='description'>Can you match which shapes are the same?</h2>
+			</div>
+			<div class='row vertical'>
+				<div class='col-sm-12'>
+					<table class="second">
+						<tr>
+							<td>
+								<ul class="secondleft">
+								</ul>
+							</td>
+							<td><canvas id="canvas2" resize ></canvas></td>
+							<td>
+								<ul class="secondright">
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class='tableh second'>
+				<ul class="horizontal secondleft">
+				</ul>
+				<div><canvas id="canvas2h" resize ></canvas></div>
+				<ul class="horizontal secondright">
+				</ul>
+			</div>	
+		</div>
+	</div>
+
+	<div id="CoolCounting">
+		<div class='row'>
+			<div class='col-sm-12'>
+				<i class='glyphicon glyphicon-refresh refresher'></i>
+				<div class='playagain'>
+					<button type='button'>Play Again?</button>
+				</div>
+				<h2 class='description'>Count the minions and select the right number</h2>
+			</div>
+			<div class='row vertical'>
+				<div class='col-sm-12'>
+					<table class="third">
+						<tr>
+							<td>
+								<ul class="thirdleft">
+								</ul>
+							</td>
+							<td><canvas id="canvas3" resize ></canvas></td>
+							<td>
+								<ul class="thirdright">
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class='tableh third'>
+			<ul class="horizontal thirdleft">
+				</ul>
+				<div><canvas id="canvas3h" resize ></canvas></div>
+				<ul class="horizontal thirdright">
+				</ul>
+			</div>	
+		</div>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="js/lab3.js"></script>
+
+</body>
+
+</html>
