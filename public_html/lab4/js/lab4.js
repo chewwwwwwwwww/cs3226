@@ -26,16 +26,8 @@ var imageWidth = undefined;
 var imageHeight = undefined;
 var canvas1 = document.getElementById('canvas1');
 canvas1.width = 300;
-var canvas2 = document.getElementById('canvas2');
-canvas2.width = 300;
-var canvas3 = document.getElementById('canvas3');
-canvas3.width = 300;
 var canvas1h = document.getElementById('canvas1h');
 canvas1h.height = 215;
-var canvas2h = document.getElementById('canvas2h');
-canvas2h.height = 215;
-var canvas3h = document.getElementById('canvas3h');
-canvas3h.height = 215;
 var ctx1 = undefined;
 var ctx2 = undefined;
 
@@ -47,7 +39,6 @@ function generateFirstPage(e) {
     requiredMatches = $('#n1').val();
     if(requiredMatches >=2 && requiredMatches <= 12) {
         e.preventDefault();
-        $('.firstnum').hide();
         var listHTML = '';
         leftImageArray = randomImages(imageListFirst, requiredMatches);
         for(var i = 0; i < requiredMatches; i++)   {
@@ -55,166 +46,36 @@ function generateFirstPage(e) {
         }
         imageListFirst = imageListFirst.concat(leftImageArray);
         $('.firstleft').html(listHTML);
-        random = false;
-        while(random == false)	{
-           rightImageArray = shuffleArray(leftImageArray);
-           random = checkRandom(leftImageArray, rightImageArray);
-       }
-       listHTML = '';
-       for(var i = 0; i < requiredMatches; i++)   {
-        listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
-    }
-    $('.firstright').html(listHTML);
-    resizeImages();
-    $('.refresher').fadeIn();
-    $('.refresher').css('display', 'block');
-
-    canvasHeight(canvas1);
-    ctx1 = canvas1.getContext("2d");
-    ctx1.lineWidth = 3;
-	var gradient=ctx1.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx1.strokeStyle = gradient;
-    canvasWidth(canvas1h);
-    ctx2 = canvas1h.getContext("2d");
-    ctx2.lineWidth = 3;
-    var gradient=ctx2.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx2.strokeStyle = gradient;
-
-    $("#PairMatch").fadeIn();
-}
-
-}
-
-function generateSecondPage(e) {
-    requiredMatches = $('#n2').val();
-    if(requiredMatches >=2 && requiredMatches <= 12) {
-        e.preventDefault();  
-        $('.secondnum').hide();
-        var listHTML = '';
-        leftImageArray = randomImages(imageListSecond, requiredMatches);
+        rightImageArray = randomImages(imageListSecond, requiredMatches);
+        listHTML = '';
         for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + leftImageArray[i] + '"></li>';
+            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
         }
-        imageListSecond = imageListSecond.concat(leftImageArray);
-        $('.secondleft').html(listHTML);
-        random = false;
-        while(random == false)	{
-           rightImageArray = shuffleArray(leftImageArray);
-           random = checkRandom(leftImageArray, rightImageArray);
-       }
-       listHTML = '';
-       for(var i = 0; i < requiredMatches; i++)   {
-        listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
+        $('.firstright').html(listHTML);
+        resizeImages();
+        $('.refresher').fadeIn();
+        $('.refresher').css('display', 'block');
+
+        canvasHeight(canvas1);
+        ctx1 = canvas1.getContext("2d");
+        ctx1.lineWidth = 3;
+        var gradient=ctx1.createLinearGradient(0,0,170,0);
+        gradient.addColorStop("0","magenta");
+        gradient.addColorStop("0.5","blue");
+        gradient.addColorStop("1.0","red");
+        ctx1.strokeStyle = gradient;
+        canvasWidth(canvas1h);
+        ctx2 = canvas1h.getContext("2d");
+        ctx2.lineWidth = 3;
+        var gradient=ctx2.createLinearGradient(0,0,170,0);
+        gradient.addColorStop("0","magenta");
+        gradient.addColorStop("0.5","blue");
+        gradient.addColorStop("1.0","red");
+        ctx2.strokeStyle = gradient;
+        $("#homepage").hide();
+        $("#PairMatch").fadeIn();
     }
-    $('.secondright').html(listHTML);
-    resizeImages();
-    $('.refresher').fadeIn();
-    $('.refresher').css('display', 'block');
 
-    canvasHeight(canvas2);
-    ctx1 = canvas2.getContext("2d");
-    ctx1.lineWidth = 3;
-    var gradient=ctx1.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx1.strokeStyle = gradient;
-    canvasWidth(canvas2h);
-    ctx2 = canvas2h.getContext("2d");
-    ctx2.lineWidth = 3;
-    var gradient=ctx2.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx2.strokeStyle = gradient;
-
-    $("#SuperShapes").fadeIn();
-}
-
-}
-
-function generateThirdPage(e) {
-    requiredMatches = $('#n3').val();
-    if(requiredMatches >=2 && requiredMatches <= 12) {
-       e.preventDefault();
-       $('.thirdnum').hide();
-       var listHTML = '';
-       leftImageArray = randomImages(imageListThird, requiredMatches);
-       for(var i = 0; i < requiredMatches; i++)   {
-        listHTML += '<li><img src="' + leftImageArray[i] + '"></li>';
-    }
-    imageListThird = imageListThird.concat(leftImageArray);
-    $('.thirdleft').html(listHTML);
-    listHTML = '';
-    rightImageArray = matchPictures(leftImageArray);
-    random = false;
-    while(random == false)  {
-       rightImageArray = shuffleArray(rightImageArray);
-       random = checkRandomThird(leftImageArray, rightImageArray);
-   }
-   for(var i = 0; i < requiredMatches; i++)   {
-    listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
-}
-$('.thirdright').html(listHTML);
-resizeImages();
-$('.refresher').fadeIn();
-$('.refresher').css('display', 'block');
-
-canvasHeight(canvas3);
-ctx1 = canvas3.getContext("2d");
-ctx1.lineWidth = 3;
-var gradient=ctx1.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx1.strokeStyle = gradient;
-    canvasWidth(canvas3h);
-    ctx2 = canvas3h.getContext("2d");
-    ctx2.lineWidth = 3;
-    var gradient=ctx2.createLinearGradient(0,0,170,0);
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("0.5","blue");
-gradient.addColorStop("1.0","red");
-    ctx2.strokeStyle = gradient;
-
-$("#CoolCounting").fadeIn();
-}
-
-}
-
-function checkRandom(left, right)	{
-	for(var i = 0; i < requiredMatches; i++)	{
-		if(left[i] == right[i])	{
-			return false;
-		}
-	}
-	return true;
-}
-
-function checkRandomThird(left,right) {
-    for(var i = 0; i < requiredMatches; i++)    {
-        if(left[i] == "images/25.jpg" && right[i] == "images/37.jpg" ||
-            left[i] == "images/26.jpg" && right[i] == "images/38.jpg" ||
-            left[i] == "images/27.jpg" && right[i] == "images/39.jpg" ||
-            left[i] == "images/28.jpg" && right[i] == "images/40.jpg" ||
-            left[i] == "images/29.jpg" && right[i] == "images/41.jpg" ||
-            left[i] == "images/30.jpg" && right[i] == "images/42.jpg" ||
-            left[i] == "images/31.jpg" && right[i] == "images/43.jpg" ||
-            left[i] == "images/32.jpg" && right[i] == "images/44.jpg" ||
-            left[i] == "images/33.jpg" && right[i] == "images/45.jpg" ||
-            left[i] == "images/34.jpg" && right[i] == "images/46.jpg" ||
-            left[i] == "images/35.jpg" && right[i] == "images/47.jpg" ||
-            left[i] == "images/36.jpg" && right[i] == "images/48.jpg") {
-            return false;
-    }
-}
-return true;
 }
 
 function randomImages(tableName, num) {
@@ -226,110 +87,11 @@ function randomImages(tableName, num) {
     return imagesToReturn;
 }
 
-function shuffleArray(tableName) {
-	var tableToReturn = [];
-	for(var i = 0; i < tableName.length; i++)	{
-		tableToReturn.push(tableName[i]);
-	}
-    for (var i = tableName.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = tableToReturn[i];
-        tableToReturn[i] = tableToReturn[j];
-        tableToReturn[j] = temp;
-    }
-    return tableToReturn;
-}
 
 function randomize(messageArray) {
     arraylen = messageArray.length;
     var i = Math.floor(Math.random() * arraylen);
     return messageArray[i];
-}
-
-function matchPictures(images)  {
-    var imageLength = images.length;
-    var imageArray = [];
-    for(var i = 0; i < imageLength; i++)        {
-        if(images[i] == "images/25.jpg")    {
-          imageArray.push(imageListFourth[0]);
-      }
-      else if(images[i] == "images/26.jpg"){
-        imageArray.push(imageListFourth[1]);
-    }
-    else if(images[i] == "images/27.jpg"){
-        imageArray.push(imageListFourth[2]);
-    }
-    else if(images[i] == "images/28.jpg"){
-        imageArray.push(imageListFourth[3]);
-    }
-    else if(images[i] == "images/29.jpg"){
-        imageArray.push(imageListFourth[4]);
-    }
-    else if(images[i] == "images/30.jpg"){
-        imageArray.push(imageListFourth[5]);
-    }
-    else if(images[i] == "images/31.jpg"){
-        imageArray.push(imageListFourth[6]);
-    }
-    else if(images[i] == "images/32.jpg"){
-        imageArray.push(imageListFourth[7]);
-    }
-    else if(images[i] == "images/33.jpg"){
-        imageArray.push(imageListFourth[8]);
-    }
-    else if(images[i] == "images/34.jpg"){
-        imageArray.push(imageListFourth[9]);
-    }
-    else if(images[i] == "images/35.jpg"){
-        imageArray.push(imageListFourth[10]);
-    }
-    else if(images[i] == "images/36.jpg"){
-        imageArray.push(imageListFourth[11]);
-    }
-
-}
-return imageArray;
-}
-
-function correctMatch(id1, id2) {
-    if((id1 == "images/25.jpg" && id2 == "images/37.jpg") || (id1 == "images/37.jpg" && id2 == "images/25.jpg")){
-        return true;
-    }
-    else if((id1 == "images/26.jpg" && id2 == "images/38.jpg") || (id1 == "images/38.jpg" && id2 == "images/26.jpg")){
-        return true;
-    }
-    else if((id1 == "images/27.jpg" && id2 == "images/39.jpg") || (id1 == "images/39.jpg" && id2 == "images/27.jpg")){
-        return true;
-    }
-    else if((id1 == "images/28.jpg" && id2 == "images/40.jpg") || (id1 == "images/40.jpg" && id2 == "images/28.jpg")){
-        return true;
-    }
-    else if((id1 == "images/29.jpg" && id2 == "images/41.jpg") || (id1 == "images/41.jpg" && id2 == "images/29.jpg")){
-        return true;
-    }
-    else if((id1 == "images/30.jpg" && id2 == "images/42.jpg") || (id1 == "images/42.jpg" && id2 == "images/30.jpg")){
-        return true;
-    }
-    else if((id1 == "images/31.jpg" && id2 == "images/43.jpg") || (id1 == "images/43.jpg" && id2 == "images/31.jpg")){
-        return true;
-    }
-    else if((id1 == "images/32.jpg" && id2 == "images/44.jpg") || (id1 == "images/44.jpg" && id2 == "images/32.jpg")){
-        return true;
-    }
-    else if((id1 == "images/33.jpg" && id2 == "images/45.jpg") || (id1 == "images/45.jpg" && id2 == "images/33.jpg")){
-        return true;
-    }
-    else if((id1 == "images/34.jpg" && id2 == "images/46.jpg") || (id1 == "images/46.jpg" && id2 == "images/34.jpg")){
-        return true;
-    }
-    else if((id1 == "images/35.jpg" && id2 == "images/47.jpg") || (id1 == "images/47.jpg" && id2 == "images/35.jpg")){
-        return true;
-    }
-    else if((id1 == "images/36.jpg" && id2 == "images/48.jpg") || (id1 == "images/48.jpg" && id2 == "images/36.jpg")){
-        return true;
-    }
-    else
-        return false;
 }
 
 function resizeImages() {
@@ -591,7 +353,7 @@ function drawCurvyLine(i, j) {
             ctx2.bezierCurveTo(xCoordinate[i]+50, 72, xCoordinate[j]-50, 144, xCoordinate[j], 215);
             ctx2.stroke();
 
-          
+
         }
         if(down) {
             down = false;
@@ -630,14 +392,14 @@ function drawCurvyLine(i, j) {
             }
         });
         $('img').each(function () {
-            
+
 
             for(var i=0; i<imagesToCopy.length; i++){
-            if($(this).attr('src') == imagesToCopy[i]) {
-                $(this).addClass('complete');
-                $(this).addClass('disabled');
+                if($(this).attr('src') == imagesToCopy[i]) {
+                    $(this).addClass('complete');
+                    $(this).addClass('disabled');
+                }
             }
-			}
         });
         if(requiredMatches == 0) {
             $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
@@ -648,22 +410,22 @@ function drawCurvyLine(i, j) {
 
     function landscapeToPortrait() {
         $('img').each(function () {
-          
+
             if($(this).attr('class') == "complete disabled" && ($.inArray($(this).attr('src'), imagesToCopy)) == -1) {
                 imagesToCopy.push($(this).attr('src'));
             }
         });
         $('img').each(function () {
-            
-     
-			for(var i=0; i<imagesToCopy.length; i++){
+
+
+           for(var i=0; i<imagesToCopy.length; i++){
             if($(this).attr('src') == imagesToCopy[i]) {
-				
+
                 $(this).addClass('complete');
                 $(this).addClass('disabled');
             }
-			}
-        });
+        }
+    });
         if(requiredMatches == 0) {
             $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
             $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
@@ -699,11 +461,6 @@ $(document).ready(function()    {
     $('.refresher').hide();
     $("#homepage").hide();
     $("#PairMatch").hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    $('.firstnum').hide();
-    $('.secondnum').hide();
-    $('.thirdnum').hide();
     $("#homepage").fadeIn();
 
     hideAllMessages();
@@ -726,14 +483,14 @@ $(document).ready(function()    {
         if (Math.abs(window.orientation) === 90 || window.innerHeight < window.innerWidth) {
         //Landscape
         portrait = false;
-		hideMessage();
+        hideMessage();
         portraitToLandscape();
         $('.tableh').show();
         $('.vertical').hide();
     } else {
         //Portrait
         portrait = true;
-		hideMessage();
+        hideMessage();
         landscapeToPortrait();
         $('.tableh').hide();
         $('.vertical').show();
@@ -749,84 +506,14 @@ $(document).ready(function()    {
 ************************************************************/
 
 $('#firstbtn').click(generateFirstPage);
-$('#secondbtn').click(generateSecondPage);
-$('#thirdbtn').click(generateThirdPage);
 
 $(".homebutton").click(function(){
     $('button').removeClass('active');
     $('button.homebutton').addClass('active');
     $("#homepage").fadeIn();
     $("#PairMatch").hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    $('.firstnum').hide();
-    $('.secondnum').hide();
-    $('.thirdnum').hide();
     $('.playagain').hide();
     $('li img').removeClass('disabled');
-    $('.ssbutton').prop('disabled', false);
-    $('.pmbutton').prop('disabled', false);
-    $('.ccbutton').prop('disabled', false);
-}); 
-$(".pmbutton").click(function(){
-    imagesToCopy = [];
-    count = 0;
-    $('button').removeClass('active');
-    $('button.pmbutton').addClass('active');
-    $('.firstnum').hide();
-    $("#PairMatch").hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    $('#homepage').hide();
-    $('.firstnum').fadeIn();
-    $('.secondnum').hide();
-    $('.thirdnum').hide();
-    $('.playagain').hide();  
-    $('.refresher').hide();
-    $('li img').removeClass('disabled');
-    $('.ssbutton').prop('disabled', false);
-    $('.ccbutton').prop('disabled', false);
-    $('.pmbutton').prop('disabled', true);
-}); 
-$(".ssbutton").click(function(){
-    imagesToCopy = [];
-    count = 0;
-    $('button').removeClass('active');
-    $('button.ssbutton').addClass('active');
-    $('.secondnum').hide();
-    $("#PairMatch").hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    $('#homepage').hide();
-    $('.firstnum').hide();
-    $('.thirdnum').hide();
-    $('.secondnum').fadeIn();
-    $('.playagain').hide(); 
-    $('.refresher').hide();
-    $('li img').removeClass('disabled');
-    $('.ssbutton').prop('disabled', true);
-    $('.pmbutton').prop('disabled', false);
-    $('.ccbutton').prop('disabled', false);
-}); 
-$(".ccbutton").click(function(){
-    imagesToCopy = [];
-    count = 0;
-    $('button').removeClass('active');
-    $('button.ccbutton').addClass('active');
-    $('.thirdnum').hide();
-    $("#PairMatch").hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    $('#homepage').hide();
-    $('.firstnum').hide();
-    $('.secondnum').hide();
-    $('.thirdnum').fadeIn();
-    $('.playagain').hide();        
-    $('.refresher').hide();
-    $('li img').removeClass('disabled');
-    $('.ccbutton').prop('disabled', true);
-    $('.ssbutton').prop('disabled', false);
-    $('.pmbutton').prop('disabled', false);
 }); 
 
 $('.playagain').on('click', 'button', function()    {
@@ -835,31 +522,13 @@ $('.playagain').on('click', 'button', function()    {
     $('.playagain').hide();
     $('li img').removeClass('disabled');
     $('#PairMatch').hide();
-    $("#SuperShapes").hide();
-    $("#CoolCounting").hide();
-    if($('.pmbutton').prop("disabled"))   {
-        $('.firstnum').fadeIn();
-    }
-    else if($('.ssbutton').prop("disabled")) {
-        $('.secondnum').fadeIn();
-    }
-    else if($('.ccbutton').prop("disabled")) {
-        $('.thirdnum').fadeIn();
-    }
+    $('#homepage').fadeIn();
 });
 
 $('.refresher').on('click', function()  {
     hideMessage();
     $('.playagain').hide();
-    if($('.pmbutton').prop("disabled"))   {
-        $('.pmbutton').trigger('click');
-    }
-    else if($('.ssbutton').prop("disabled")) {
-        $('.ssbutton').trigger('click');
-    }
-    else if($('.ccbutton').prop("disabled")) {
-        $('.ccbutton').trigger('click');
-    }
+    $('.homebutton').trigger('click');
 });
 
 $('.navbar-brand').on('click', function()   {
@@ -1035,180 +704,6 @@ $('.firstright, .secondright').on('click', 'img', function()   {
                 id2.removeClass('topselected');
                 id2.removeClass('botselected');
             }
-        }
-    }
-    if(requiredMatches == 0)    {
-        imagesToCopy = [];
-        $('.successmsg').html("Congratulations! You're a star!");
-        showMessage('success');
-        $('.refresher').hide();
-        $('.playagain').fadeIn();
-        $('.playagain button').css('display', 'block');
-    }
-});
-
-//LEFT TABLE FOR COOL COUNTING
-$('.thirdleft').on('click', 'img', function()   {
-    if(portrait) {
-        $(this).toggleClass('leftselected');
-    }
-    else {
-        $(this).toggleClass('topselected');
-    }
-    count++;
-    if(count == 1)  {
-        hideMessage();
-        id1 = $(this);
-    }
-    if(count == 2)  {
-        count = 0;
-        id2 = $(this);
-        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
-            if(portrait) {
-                $(this).removeClass('leftselected');
-            }
-            else {
-                $(this).removeClass('topselected');
-            }
-            return;
-        }        
-        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-            showMessage('warning');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id2.removeClass('leftselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id2.removeClass('botselected');
-            }
-        }
-        else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
-            $('.errormsg').html(randomize(errorMessages));
-            showMessage('error');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
-                id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id1.removeClass('botselected');
-                id2.removeClass('topselected');
-                id2.removeClass('botselected');
-            }
-        }
-        else    {
-            determineLine();
-            requiredMatches--;
-            if(requiredMatches != 0) {
-                $('.successmsg').html(randomize(successMessages));
-                showMessage('success');
-            }
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
-                id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id1.removeClass('botselected');
-                id2.removeClass('topselected');
-                id2.removeClass('botselected');
-            }
-        }
-    }
-    if(requiredMatches == 0)    {
-        imagesToCopy = [];
-        $('.successmsg').html("Congratulations! You're a star!");
-        showMessage('success');
-        $('.refresher').hide();
-        $('.playagain').fadeIn();
-        $('.playagain button').css('display', 'block');
-    }
-});
-
-//RIGHT TABLE FOR COOL COUNTING
-$('.thirdright').on('click', 'img', function()   {
-    if(portrait) {
-        $(this).toggleClass('rightselected');
-    }
-    else {
-        $(this).toggleClass('botselected');
-    }
-    count++;
-    if(count == 1)  {
-        hideMessage();
-        id1 = $(this);
-    }
-    if(count == 2)  {
-        count = 0;
-        id2 = $(this);
-        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
-            if(portrait) {
-                $(this).removeClass('rightselected');
-            }
-            else {
-                $(this).removeClass('botselected');
-            }
-            return;
-        }         
-        if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
-            showMessage('warning');
-            if(portrait) {
-                id1.removeClass('rightselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('botselected');
-                id2.removeClass('botselected');
-            }
-        }
-        else if(!correctMatch(id1.attr('src'), id2.attr('src'))) {
-            $('.errormsg').html(randomize(errorMessages));
-            showMessage('error');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
-                id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id1.removeClass('botselected');
-                id2.removeClass('topselected');
-                id2.removeClass('botselected');
-            }
-        }
-        else    {
-            determineLine();
-            requiredMatches--;
-            if(requiredMatches != 0) {
-                $('.successmsg').html(randomize(successMessages));
-                showMessage('success');
-            }
-            id1.addClass('complete');
-            id2.addClass('complete');
-            id1.addClass('disabled');
-            id2.addClass('disabled');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
-                id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id1.removeClass('botselected');
-                id2.removeClass('topselected');
-                id2.removeClass('botselected');
-            }            
         }
     }
     if(requiredMatches == 0)    {
