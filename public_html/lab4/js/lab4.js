@@ -2,17 +2,18 @@
 ******************* ):GLOBAL VARIABLES:( ********************
 ************************************************************/
 
-var imageListFirst = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg", "images/6.jpg", "images/7.jpg", "images/8.jpg", "images/9.jpg", "images/10.jpg", "images/11.jpg", "images/12.jpg"];
-var imageListSecond = ["images/13.jpg", "images/14.jpg", "images/15.jpg", "images/16.jpg", "images/17.jpg", "images/18.jpg", "images/19.jpg", "images/20.jpg", "images/21.jpg", "images/22.jpg", "images/23.jpg", "images/24.jpg"];
-var imageListThird = ["images/25.jpg", "images/26.jpg", "images/27.jpg", "images/28.jpg", "images/29.jpg", "images/30.jpg", "images/31.jpg", "images/32.jpg", "images/33.jpg", "images/34.jpg", "images/35.jpg", "images/36.jpg"];
-var imageListFourth = ["images/37.jpg", "images/38.jpg", "images/39.jpg", "images/40.jpg", "images/41.jpg", "images/42.jpg", "images/43.jpg", "images/44.jpg", "images/45.jpg", "images/46.jpg", "images/47.jpg", "images/48.jpg"];
+var imageListFirst = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg", "images/6.jpg", "images/7.jpg", "images/8.jpg", "images/9.jpg", "images/10.jpg"];
+var imageListSecond = ["images/11.jpg", "images/12.jpg", "images/13.jpg", "images/14.jpg", "images/15.jpg", "images/16.jpg", "images/17.jpg", "images/18.jpg", "images/19.jpg", "images/20.jpg"];
 var myMessages = ['warning','error','success'];
 var successMessages = ["Well Done!", "Correct Match! Way to go!", "You're so good at this!", "Keep at it. You're doing fine!", "Whoopee! That's Correct!"];
 var errorMessages = ['Try again!', 'Incorrect. You can do it!', "Oops! That wasn't right ):", "Uh Oh! Looks like you got the wrong match :("];
 var requiredMatches = undefined;
+var leftCount = undefined;
+var rightCount = undefined;
 var count = 0;
 var id1 = '';
 var id2 = '';
+var JSONArray = [];
 var imagesToCopy = [];
 var portrait = undefined;
 var random = false;
@@ -36,45 +37,43 @@ var ctx2 = undefined;
 ************************************************************/
 
 function generateFirstPage(e) {    
-    requiredMatches = $('#n1').val();
-    if(requiredMatches >=2 && requiredMatches <= 12) {
-        e.preventDefault();
-        var listHTML = '';
-        leftImageArray = randomImages(imageListFirst, requiredMatches);
-        for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + leftImageArray[i] + '"></li>';
-        }
-        imageListFirst = imageListFirst.concat(leftImageArray);
-        $('.firstleft').html(listHTML);
-        rightImageArray = randomImages(imageListSecond, requiredMatches);
-        listHTML = '';
-        for(var i = 0; i < requiredMatches; i++)   {
-            listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
-        }
-        $('.firstright').html(listHTML);
-        resizeImages();
-        $('.refresher').fadeIn();
-        $('.refresher').css('display', 'block');
-
-        canvasHeight(canvas1);
-        ctx1 = canvas1.getContext("2d");
-        ctx1.lineWidth = 3;
-        var gradient=ctx1.createLinearGradient(0,0,170,0);
-        gradient.addColorStop("0","magenta");
-        gradient.addColorStop("0.5","blue");
-        gradient.addColorStop("1.0","red");
-        ctx1.strokeStyle = gradient;
-        canvasWidth(canvas1h);
-        ctx2 = canvas1h.getContext("2d");
-        ctx2.lineWidth = 3;
-        var gradient=ctx2.createLinearGradient(0,0,170,0);
-        gradient.addColorStop("0","magenta");
-        gradient.addColorStop("0.5","blue");
-        gradient.addColorStop("1.0","red");
-        ctx2.strokeStyle = gradient;
-        $("#homepage").hide();
-        $("#PairMatch").fadeIn();
+    e.preventDefault();
+    var listHTML = '';
+    leftImageArray = randomImages(imageListFirst, leftCount);
+    for(var i = 0; i < leftCount; i++)   {
+        listHTML += '<li><img src="' + leftImageArray[i] + '"></li>';
     }
+    imageListFirst = imageListFirst.concat(leftImageArray);
+    $('.firstleft').html(listHTML);
+    rightImageArray = randomImages(imageListSecond, rightCount);
+    listHTML = '';
+    for(var i = 0; i < rightCount; i++)   {
+        listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
+    }
+    $('.firstright').html(listHTML);
+    resizeImages();
+    $('.refresher').fadeIn();
+    $('.refresher').css('display', 'block');
+
+    canvasHeight(canvas1);
+    ctx1 = canvas1.getContext("2d");
+    ctx1.lineWidth = 3;
+    var gradient=ctx1.createLinearGradient(0,0,170,0);
+    gradient.addColorStop("0","magenta");
+    gradient.addColorStop("0.5","blue");
+    gradient.addColorStop("1.0","red");
+    ctx1.strokeStyle = gradient;
+    canvasWidth(canvas1h);
+    ctx2 = canvas1h.getContext("2d");
+    ctx2.lineWidth = 3;
+    var gradient=ctx2.createLinearGradient(0,0,170,0);
+    gradient.addColorStop("0","magenta");
+    gradient.addColorStop("0.5","blue");
+    gradient.addColorStop("1.0","red");
+    ctx2.strokeStyle = gradient;
+    $("#homepage").hide();
+    $("#PairMatch").fadeIn();
+    
 
 }
 
@@ -96,53 +95,39 @@ function randomize(messageArray) {
 
 function resizeImages() {
     if(portrait) {
-        switch(requiredMatches) {
+        switch(leftCount) {
             case '6':
-            imageHeight = (840 / requiredMatches);
+            imageHeight = (840 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 126;
             calculateX();
             calculateY();
             break;
             case '7':
-            imageHeight = (830 / requiredMatches);
+            imageHeight = (830 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 107;
             calculateX();
             calculateY();
             break;
             case '8':
-            imageHeight = (820 / requiredMatches);
+            imageHeight = (820 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 92;
             calculateX();
             calculateY();
             break;
             case '9':
-            imageHeight = (810 / requiredMatches);
+            imageHeight = (810 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 81;
             calculateX();
             calculateY();
             break;
             case '10':
-            imageHeight = (800 / requiredMatches);
+            imageHeight = (800 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 80;
-            calculateX();
-            calculateY();
-            break;
-            case '11':
-            imageHeight = (790 / requiredMatches);
-            $('li img').height(imageHeight + 'px');
-            imageWidth = 65;
-            calculateX();
-            calculateY();
-            break;
-            case '12':
-            imageHeight = (780 / requiredMatches);
-            $('li img').height(imageHeight + 'px');
-            imageWidth = 58;
             calculateX();
             calculateY();
             break;
@@ -155,46 +140,32 @@ function resizeImages() {
         }
     }
     else {
-        switch(requiredMatches) {
+        switch(leftCount) {
             case '7':
-            imageHeight = (840 / requiredMatches);
+            imageHeight = (840 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 108;
             calculateX();
             calculateY();
             break;
             case '8':
-            imageHeight = (830 / requiredMatches);
+            imageHeight = (830 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 93;
             calculateX();
             calculateY();
             break;
             case '9':
-            imageHeight = (820 / requiredMatches);
+            imageHeight = (820 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 82;
             calculateX();
             calculateY();
             break;
             case '10':
-            imageHeight = (810 / requiredMatches);
+            imageHeight = (810 / leftCount);
             $('li img').height(imageHeight + 'px');
             imageWidth = 73;
-            calculateX();
-            calculateY();
-            break;
-            case '11':
-            imageHeight = (800 / requiredMatches);
-            $('li img').height(imageHeight + 'px');
-            imageWidth = 65;
-            calculateX();
-            calculateY();
-            break;
-            case '12':
-            imageHeight = (790 / requiredMatches);
-            $('li img').height(imageHeight + 'px');
-            imageWidth = 59;
             calculateX();
             calculateY();
             break;
@@ -210,14 +181,14 @@ function resizeImages() {
 
 function calculateX() {
     xCoordinate = [];
-    for(var i = 0; i < requiredMatches; i++) {
+    for(var i = 0; i < leftCount; i++) {
         xCoordinate.push(imageWidth*i + imageWidth/2 + 10 * (i+1) +10);
     }
 }
 
 function calculateY() {
     yCoordinate = [];
-    for(var i = 0; i < requiredMatches; i++) {
+    for(var i = 0; i < leftCount; i++) {
         yCoordinate.push(imageHeight*i + imageHeight/2);
     }
 }
@@ -225,7 +196,7 @@ function calculateY() {
 
 
 function canvasHeight(canvas) {
-    switch(requiredMatches) {
+    switch(leftCount) {
         case '2':
         canvas.height = 320;
         break;
@@ -262,7 +233,7 @@ function canvasHeight(canvas) {
 }
 
 function canvasWidth(canvas) {
-    switch(requiredMatches) {
+    switch(leftCount) {
         case '2':
         canvas.width = 308;
         break;
@@ -401,7 +372,7 @@ function drawCurvyLine(i, j) {
                 }
             }
         });
-        if(requiredMatches == 0) {
+        if(leftCount == 0) {
             $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
             $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
             $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
@@ -418,7 +389,7 @@ function drawCurvyLine(i, j) {
         $('img').each(function () {
 
 
-           for(var i=0; i<imagesToCopy.length; i++){
+         for(var i=0; i<imagesToCopy.length; i++){
             if($(this).attr('src') == imagesToCopy[i]) {
 
                 $(this).addClass('complete');
@@ -426,7 +397,7 @@ function drawCurvyLine(i, j) {
             }
         }
     });
-        if(requiredMatches == 0) {
+        if(leftCount == 0) {
             $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
             $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
             $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
@@ -439,16 +410,16 @@ function drawCurvyLine(i, j) {
 
     function hideMessage() {
         for (i=0; i<myMessages.length; i++){
-           $('.' + myMessages[i]).animate({top:"-89"}, 500);
-       }
-   }
+         $('.' + myMessages[i]).animate({top:"-89"}, 500);
+     }
+ }
 
-   function hideAllMessages(){
-     var messagesHeights = new Array(); 
-     for (i=0; i<myMessages.length; i++){
-       messagesHeights[i] = $('.' + myMessages[i]).outerHeight(); 
-       $('.' + myMessages[i]).css('top', -messagesHeights[i]);
-   }
+ function hideAllMessages(){
+   var messagesHeights = new Array(); 
+   for (i=0; i<myMessages.length; i++){
+     messagesHeights[i] = $('.' + myMessages[i]).outerHeight(); 
+     $('.' + myMessages[i]).css('top', -messagesHeights[i]);
+ }
 }
 
 /************************************************************
@@ -534,6 +505,23 @@ $('.refresher').on('click', function()  {
 $('.navbar-brand').on('click', function()   {
     $('.homebutton').trigger('click');
 });
+
+$('#matchnum1').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+        url: 'matching.php',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'post',
+        success: function(response) {
+            leftCount = response.N;
+            rightCount = response.M;
+            JSONArray = response.E;
+            generateFirstPage();
+        }
+    });
+
+})
 
 /************************************************************
 ************************ TABLE BUTTONS **********************
