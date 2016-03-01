@@ -60,7 +60,6 @@ Questions
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<h3 class='successmsg'></h3>
 	</div>
-
 	
 	<div id="homepage" class="homedisplay"> 
 		<div class="col-sm-12">			
@@ -68,9 +67,9 @@ Questions
 				<h1 class='hidden-xs'>Welcome to SmartMatch</h1>
 				<div class="col-sm-12">
 					<div class="firstnum">
-						<form action="matching.php" method="post" id="matchnum1">
-							N = <input type="number" min="2" id="n1" name="n" required> rows on the left column<br>
-							M = <input type="number" min="1" max="10" id="n2" name="m" required> rows on the right column<br>
+						<form id="matchnum1">
+							N = <input type="number" min="2" max="10" id="n1" name="n" id="n1" required> rows on the left column<br>
+							M = <input type="number" min="2" max="10" id="n2" name="m" id="n2" required> rows on the right column<br>
 							<input type="Submit" name="generate" value="Play!">
 						</form>
 					</div>
@@ -82,7 +81,6 @@ Questions
 			<p>Credits to images.</p>
 		</footer>
 	</div>
-
 	
 	<div id="PairMatch">
 		<div class='row'>
@@ -91,7 +89,6 @@ Questions
 				<div class='playagain'>
 					<button type='button'>Play Again?</button>
 				</div>
-				<h2 class='description'>Match the same fruits together</h2>
 			</div>
 		</div>
 
@@ -120,6 +117,10 @@ Questions
 			<ul class="horizontal firstright">
 			</ul>
 		</div>	
+		<p id="msg"></p><br><br><br>
+		<form id="matchnum2">
+			<input type="Submit" name="solve" value="Solve">
+		</form>
 	</div>
 
 	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>

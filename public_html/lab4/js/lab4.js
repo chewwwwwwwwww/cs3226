@@ -5,15 +5,22 @@
 var imageListFirst = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg", "images/6.jpg", "images/7.jpg", "images/8.jpg", "images/9.jpg", "images/10.jpg"];
 var imageListSecond = ["images/11.jpg", "images/12.jpg", "images/13.jpg", "images/14.jpg", "images/15.jpg", "images/16.jpg", "images/17.jpg", "images/18.jpg", "images/19.jpg", "images/20.jpg"];
 var myMessages = ['warning','error','success'];
-var successMessages = ["Well Done!", "Correct Match! Way to go!", "You're so good at this!", "Keep at it. You're doing fine!", "Whoopee! That's Correct!"];
-var errorMessages = ['Try again!', 'Incorrect. You can do it!', "Oops! That wasn't right ):", "Uh Oh! Looks like you got the wrong match :("];
-var requiredMatches = undefined;
+var successMessages = ["Well Done. Most optimal answeer obtained!", "Best answer! Way to go!", "Whoopee! That's Correct!"];
+var errorMessages = ['That is not the best answer. Try again!', "Oops! That wasn't right ):", "Uh Oh! Looks like you didn't get the best answer :("];
+var matches = undefined;
+var score = undefined;
+var matchArray = [];
+var wrong = false;
 var leftCount = undefined;
 var rightCount = undefined;
+var noOfImages = undefined;
+var leftOrRight = 'left';
 var count = 0;
 var id1 = '';
 var id2 = '';
-var JSONArray = [];
+var graphString = '';
+var returnedArray = [];
+var returnedData = undefined;
 var imagesToCopy = [];
 var portrait = undefined;
 var random = false;
@@ -21,8 +28,10 @@ var up = false;
 var down = false;
 var leftImageArray = [];
 var rightImageArray = [];
-var xCoordinate = [];
-var yCoordinate = [];
+var xCoordinateLeft = [];
+var	xCoordinateRight = [];
+var yCoordinateLeft = [];
+var yCoordinateRight = [];
 var imageWidth = undefined;
 var imageHeight = undefined;
 var canvas1 = document.getElementById('canvas1');
@@ -36,8 +45,10 @@ var ctx2 = undefined;
 ************************ FUNCTIONS **************************
 ************************************************************/
 
-function generateFirstPage(e) {    
-    e.preventDefault();
+function generateFirstPage() {   
+    score = 0;
+    matches = 0; 
+    noOfImages = Math.max(leftCount,rightCount);
     var listHTML = '';
     leftImageArray = randomImages(imageListFirst, leftCount);
     for(var i = 0; i < leftCount; i++)   {
@@ -50,6 +61,7 @@ function generateFirstPage(e) {
     for(var i = 0; i < rightCount; i++)   {
         listHTML += '<li><img src="' + rightImageArray[i] + '"></li>';
     }
+    imageListSecond = imageListSecond.concat(rightImageArray);
     $('.firstright').html(listHTML);
     resizeImages();
     $('.refresher').fadeIn();
@@ -58,19 +70,14 @@ function generateFirstPage(e) {
     canvasHeight(canvas1);
     ctx1 = canvas1.getContext("2d");
     ctx1.lineWidth = 3;
-    var gradient=ctx1.createLinearGradient(0,0,170,0);
-    gradient.addColorStop("0","magenta");
-    gradient.addColorStop("0.5","blue");
-    gradient.addColorStop("1.0","red");
-    ctx1.strokeStyle = gradient;
+    ctx1.font="20px Mclaren";
+    ctx1.fillStyle = 'red';
     canvasWidth(canvas1h);
     ctx2 = canvas1h.getContext("2d");
     ctx2.lineWidth = 3;
-    var gradient=ctx2.createLinearGradient(0,0,170,0);
-    gradient.addColorStop("0","magenta");
-    gradient.addColorStop("0.5","blue");
-    gradient.addColorStop("1.0","red");
-    ctx2.strokeStyle = gradient;
+    ctx2.font="20px Mclaren";
+    ctx2.fillStyle = 'red';
+    determineLine();
     $("#homepage").hide();
     $("#PairMatch").fadeIn();
     
@@ -93,85 +100,113 @@ function randomize(messageArray) {
     return messageArray[i];
 }
 
+function findImageIndex(left, right)   {
+    for(var i=0; i<leftImageArray.length; i++)  {
+        if(left.attr('src') == leftImageArray[i])   {
+            break;
+        }
+    }
+    for(var j=0; j<rightImageArray.length; j++)  {
+        if(right.attr('src') == rightImageArray[j])   {
+            break;
+        }
+    }
+    matchArray.push([i,j]);
+    calculateAndDraw(i,j);
+}
+
 function resizeImages() {
     if(portrait) {
-        switch(leftCount) {
-            case '6':
-            imageHeight = (840 / leftCount);
+        switch(noOfImages) {
+            case 6:
+            imageHeight = (840 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 126;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '7':
-            imageHeight = (830 / leftCount);
+            case 7:
+            imageHeight = (830 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 107;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '8':
-            imageHeight = (820 / leftCount);
+            case 8:
+            imageHeight = (820 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 92;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '9':
-            imageHeight = (810 / leftCount);
+            case 9:
+            imageHeight = (810 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 81;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '10':
-            imageHeight = (800 / leftCount);
+            case 10:
+            imageHeight = (800 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 80;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
             default:
             imageHeight = 160;
+            $('li img').height(imageHeight + 'px');
             imageWidth = 144;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
         }
     }
     else {
-        switch(leftCount) {
-            case '7':
-            imageHeight = (840 / leftCount);
+        switch(noOfImages) {
+            case 7:
+            imageHeight = (840 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 108;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '8':
-            imageHeight = (830 / leftCount);
+            case 8:
+            imageHeight = (830 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 93;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '9':
-            imageHeight = (820 / leftCount);
+            case 9:
+            imageHeight = (820 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 82;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
-            case '10':
-            imageHeight = (810 / leftCount);
+            case 10:
+            imageHeight = (810 / noOfImages);
             $('li img').height(imageHeight + 'px');
             imageWidth = 73;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
             default:
             imageHeight = 160;
+            $('li img').height(imageHeight + 'px');
             imageWidth = 144;
+            $('li img').width(imageWidth + 'px');
             calculateX();
             calculateY();
             break;
@@ -180,241 +215,303 @@ function resizeImages() {
 }
 
 function calculateX() {
-    xCoordinate = [];
+    xCoordinateLeft = [];
+    xCoordinateRight = [];
     for(var i = 0; i < leftCount; i++) {
-        xCoordinate.push(imageWidth*i + imageWidth/2 + 10 * (i+1) +10);
+        xCoordinateLeft.push(imageWidth*i + imageWidth/2 + 10 * (i+1) +10);
+    }
+    for(var i = 0; i < rightCount; i++) {
+        xCoordinateRight.push(imageWidth*i + imageWidth/2 + 10 * (i+1) +10);
     }
 }
 
 function calculateY() {
-    yCoordinate = [];
+    yCoordinateLeft = [];
+    yCoordinateRight = [];
     for(var i = 0; i < leftCount; i++) {
-        yCoordinate.push(imageHeight*i + imageHeight/2);
+        yCoordinateLeft.push(imageHeight*i + imageHeight/2);
+    }
+    for(var i = 0; i < rightCount; i++) {
+        yCoordinateRight.push(imageHeight*i + imageHeight/2);
     }
 }
 
 
 
 function canvasHeight(canvas) {
-    switch(leftCount) {
-        case '2':
+	var noOfImages = Math.max(leftCount,rightCount);
+    switch(noOfImages) {
+        case 2:
         canvas.height = 320;
         break;
-        case '3':
+        case 3:
         canvas.height = 480;
         break;
-        case '4':
+        case 4:
         canvas.height = 640;
         break;
-        case '5':
+        case 5:
         canvas.height = 800;
         break;
-        case '6':
+        case 6:
         canvas.height = 840;
         break;
-        case '7':
+        case 7:
         canvas.height = 829.938;
         break;
-        case '8':
+        case 8:
         canvas.height = 820;
         break;
-        case '9':
+        case 9:
         canvas.height = 810;
         break;
-        case '10':
+        case 10:
         canvas.height = 800;
-        break;
-        case '11':
-        canvas.height = 789.938
-        case '12':
-        canvas.height = 780;
         break;
     }
 }
 
 function canvasWidth(canvas) {
-    switch(leftCount) {
-        case '2':
+    var noOfImages = Math.max(leftCount,rightCount);
+    switch(noOfImages) {
+        case 2:
         canvas.width = 308;
         break;
-        case '3':
+        case 3:
         canvas.width = 462;
         break;
-        case '4':
+        case 4:
         canvas.width = 616;
         break;
-        case '5':
+        case 5:
         canvas.width = 770;
         break;
-        case '6':
+        case 6:
         canvas.width = 924;
         break;
-        case '7':
+        case 7:
         canvas.width = 826;
         break;
-        case '8':
+        case 8:
         canvas.width = 824;
         break;
-        case '9':
+        case 9:
         canvas.width = 828;
         break;
-        case '10':
+        case 10:
         canvas.width = 830;
         break;
-        case '11':
-        canvas.width = 825;
-        case '12':
-        canvas.width = 828;
-        break;
+    }
+}
+
+function calculateAndDraw(left,right) {
+    var gradient=ctx1.createLinearGradient(0,0,170,0);
+    gradient.addColorStop("0","magenta");
+    gradient.addColorStop("0.5","blue");
+    gradient.addColorStop("1.0","red");
+    ctx1.strokeStyle = gradient;
+    ctx1.lineWidth = 5;
+    gradient=ctx2.createLinearGradient(0,0,170,0);
+    gradient.addColorStop("0","magenta");
+    gradient.addColorStop("0.5","blue");
+    gradient.addColorStop("1.0","red");
+    ctx2.strokeStyle = gradient;
+    ctx2.lineWidth = 5;
+    if(left-right == -1 || left-right == 1 || left-right == 0){
+        console.log("Straight");
+        ctx1.beginPath();
+        ctx1.moveTo(0, yCoordinateLeft[left]);
+        ctx1.lineTo(300, yCoordinateRight[right]);
+        ctx1.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(xCoordinateLeft[left], 0);
+        ctx2.lineTo(xCoordinateRight[right], 215);
+        ctx2.stroke();
+    }
+    else if(left-right <-1) {
+        console.log("Curve");       
+        ctx1.beginPath();
+        ctx1.moveTo(0, yCoordinateLeft[left]);
+        ctx1.bezierCurveTo(100, yCoordinateLeft[left]-50, 200, yCoordinateRight[right]+50, 300, yCoordinateRight[right]);
+        ctx1.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(xCoordinateLeft[left], 0);
+        ctx2.bezierCurveTo(xCoordinateLeft[left]-50, 72, xCoordinateRight[right]+50, 144, xCoordinateRight[right], 215);
+        ctx2.stroke();
+    }
+    else if(left-right > 1) {
+        console.log("Curved");
+        ctx1.beginPath();
+        ctx1.moveTo(0, yCoordinateLeft[left]);
+        ctx1.bezierCurveTo(100, yCoordinateLeft[left]+50, 200, yCoordinateRight[right]-50, 300, yCoordinateRight[right]);
+        ctx1.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(xCoordinateLeft[left], 0);
+        ctx2.bezierCurveTo(xCoordinateLeft[left]+50, 72, xCoordinateRight[right]-50, 144, xCoordinateRight[right], 215);
+        ctx2.stroke();
+    }
+
+    matches++;
+    for(var i=0; i<returnedArray.length; i++) {
+        if(left == returnedArray[i][0] && right == returnedArray[i][1]) {
+            score += returnedArray[i][2];
+            break;
+        }
     }
 }
 
 function determineLine() {
-    len1 = leftImageArray.length;
-    len2 = rightImageArray.length;
-    if(id1.closest('ul').attr('class') == 'firstleft' || id1.closest('ul').attr('class') == 'horizontal firstleft' ||
-        id1.closest('ul').attr('class') == 'secondleft' || id1.closest('ul').attr('class') == 'horizontal secondleft' ||
-        id1.closest('ul').attr('class') == 'thirdleft' || id1.closest('ul').attr('class') == 'horizontal thirdleft') {
-        left = id1;
-    right = id2;
+    for(var i = 0; i < returnedArray.length; i++)	{
+      if(returnedArray[i][1] - returnedArray[i][0] == -1 || returnedArray[i][1] - returnedArray[i][0] == 1 || returnedArray[i][1] - returnedArray[i][0] == 0) {
+       drawStraightLine(i);			
+   }
+   else if(returnedArray[i][1] - returnedArray[i][0] < -1) {
+       up = true;
+       drawCurvyLine(i);
+   }
+   else {
+       down = true;
+       drawCurvyLine(i);
+   }
 }
-else {
-    left = id2;
-    right = id1;
-}
-for(var i=0; i<len1; i++) {
-    if (leftImageArray[i] == left.attr('src')) {
-        break;
-    }
-}
-for(var j=0; j<len2; j++) {
-    if (rightImageArray[j] == right.attr('src')) {
-        break;
-    }
-}
-diff = j-i;
-if(diff == -1 || diff == 1) {
-    drawStraightLine(i, j);
-}
-else if(diff == 0) {
-    drawStraightLine(i, j);
-}
-else if(diff<-1) {
-    up = true;
-    drawCurvyLine(i, j);
-}
-else {
-    down = true;
-    drawCurvyLine(i, j);
 }
 
-}
-
-function drawCurvyLine(i, j) {
+function drawCurvyLine(i) {
 
     if(up) {
         up = false;
         ctx1.beginPath();
-        ctx1.moveTo(0, yCoordinate[i]);
-        ctx1.bezierCurveTo(100, yCoordinate[i]+50, 200, yCoordinate[j]-50, 300, yCoordinate[j]);
+        ctx1.moveTo(0, yCoordinateLeft[returnedArray[i][0]]);
+        ctx1.bezierCurveTo(100, yCoordinateLeft[returnedArray[i][0]]+50, 200, yCoordinateRight[returnedArray[i][1]]-50, 300, yCoordinateRight[returnedArray[i][1]]);
         ctx1.stroke();
-            //up = false;
-            ctx2.beginPath();
-            ctx2.moveTo(xCoordinate[i], 0);
-            ctx2.bezierCurveTo(xCoordinate[i]+50, 72, xCoordinate[j]-50, 144, xCoordinate[j], 215);
-            ctx2.stroke();
-
-
+        if(leftOrRight == 'left') {
+            leftOrRight = 'right';
+            ctx1.fillText(returnedArray[i][2].toString(),150, (yCoordinateLeft[returnedArray[i][0]] + yCoordinateRight[returnedArray[i][1]])/2 -30);
         }
-        if(down) {
-            down = false;
-            ctx1.beginPath();
-            ctx1.moveTo(0, yCoordinate[i]);
-            ctx1.bezierCurveTo(100, yCoordinate[i]-50, 200, yCoordinate[j]+50, 300, yCoordinate[j]);
-            ctx1.stroke();
-            //down = false;
-            ctx2.beginPath();
-            ctx2.moveTo(xCoordinate[i], 0);
-            ctx2.bezierCurveTo(xCoordinate[i]-50, 72, xCoordinate[j]+50, 144, xCoordinate[j], 215);
-            ctx2.stroke();
-            
+        else {
+            leftOrRight = 'left';
+            ctx1.fillText(returnedArray[i][2].toString(),150, (yCoordinateLeft[returnedArray[i][0]] + yCoordinateRight[returnedArray[i][1]])/2 +30);
         }
-    }
-
-    function drawStraightLine(i, j) {
-
-        ctx1.beginPath();
-        ctx1.moveTo(0, yCoordinate[i]);
-        ctx1.lineTo(300, yCoordinate[j]);
-        ctx1.stroke();
         ctx2.beginPath();
-        ctx2.moveTo(xCoordinate[i], 0);
-        ctx2.lineTo(xCoordinate[j], 215);
+        ctx2.moveTo(xCoordinateLeft[returnedArray[i][0]], 0);
+        ctx2.bezierCurveTo(xCoordinateLeft[returnedArray[i][0]]+50, 72, xCoordinateRight[returnedArray[i][1]]-50, 144, xCoordinateRight[returnedArray[i][1]], 215);
         ctx2.stroke();
-        ;
-
-    }
-
-    function portraitToLandscape() {
-
-        $('img').each(function () {
-            if($(this).attr('class') == "complete disabled" && ($.inArray($(this).attr('src'), imagesToCopy)) == -1) {
-                imagesToCopy.push($(this).attr('src'));
-            }
-        });
-        $('img').each(function () {
-
-
-            for(var i=0; i<imagesToCopy.length; i++){
-                if($(this).attr('src') == imagesToCopy[i]) {
-                    $(this).addClass('complete');
-                    $(this).addClass('disabled');
-                }
-            }
-        });
-        if(leftCount == 0) {
-            $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
-            $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
-            $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
+        if(leftOrRight == 'left') {
+            leftOrRight = 'right';
+            ctx2.fillText(returnedArray[i][2].toString(),(xCoordinateLeft[returnedArray[i][0]] + xCoordinateRight[returnedArray[i][1]]) / 2 +30, 107);
+        }
+        else {
+            leftOrRight = 'left';
+            leftOrRight = 'left';
+            ctx2.fillText(returnedArray[i][2].toString(),(xCoordinateLeft[returnedArray[i][0]] + xCoordinateRight[returnedArray[i][1]]) / 2 -30, 107);
         }
     }
+    if(down) {
+        down = false;
+        ctx1.beginPath();
+        ctx1.moveTo(0, yCoordinateLeft[returnedArray[i][0]]);
+        ctx1.bezierCurveTo(100, yCoordinateLeft[returnedArray[i][0]]-50, 200, yCoordinateRight[returnedArray[i][1]]+50, 300, yCoordinateRight[returnedArray[i][1]]);
+        ctx1.stroke();
+        if(leftOrRight == 'left') {
+            leftOrRight = 'right';
+            ctx1.fillText(returnedArray[i][2].toString(),150, (yCoordinateLeft[returnedArray[i][0]] + yCoordinateRight[returnedArray[i][1]])/2 -30);
+        }
+        else {
+            leftOrRight = 'left';
+            ctx1.fillText(returnedArray[i][2].toString(),150, (yCoordinateLeft[returnedArray[i][0]] + yCoordinateRight[returnedArray[i][1]])/2 +30);
+        }
+        ctx2.beginPath();
+        ctx2.moveTo(xCoordinateLeft[returnedArray[i][0]], 0);
+        ctx2.bezierCurveTo(xCoordinateLeft[returnedArray[i][0]]-50, 72, xCoordinateRight[returnedArray[i][1]]+50, 144, xCoordinateRight[returnedArray[i][1]], 215);
+        ctx2.stroke();
+        if(leftOrRight == 'left') {
+            leftOrRight = 'right';
+            ctx2.fillText(returnedArray[i][2].toString(),(xCoordinateLeft[returnedArray[i][0]] + xCoordinateRight[returnedArray[i][1]]) / 2 +30, 107);
+        }
+        else {
+            leftOrRight = 'left';
+            leftOrRight = 'left';
+            ctx2.fillText(returnedArray[i][2].toString(),(xCoordinateLeft[returnedArray[i][0]] + xCoordinateRight[returnedArray[i][1]]) / 2 -30, 107);
+        }
+    }
+}
 
-    function landscapeToPortrait() {
-        $('img').each(function () {
+function drawStraightLine(i) {
 
-            if($(this).attr('class') == "complete disabled" && ($.inArray($(this).attr('src'), imagesToCopy)) == -1) {
-                imagesToCopy.push($(this).attr('src'));
-            }
-        });
-        $('img').each(function () {
+    ctx1.beginPath();
+    ctx1.moveTo(0, yCoordinateLeft[returnedArray[i][0]]);
+    ctx1.lineTo(300, yCoordinateRight[returnedArray[i][1]]);
+    ctx1.stroke();
+    ctx1.fillText(returnedArray[i][2].toString(),150, (yCoordinateLeft[returnedArray[i][0]] + yCoordinateRight[returnedArray[i][1]])/2);
+    ctx2.beginPath();
+    ctx2.moveTo(xCoordinateLeft[returnedArray[i][0]], 0);
+    ctx2.lineTo(xCoordinateRight[returnedArray[i][1]], 215);
+    ctx2.stroke();
+    ctx2.fillText(returnedArray[i][2].toString(),(xCoordinateLeft[returnedArray[i][0]] + xCoordinateRight[returnedArray[i][1]]) / 2, 107);
+    ;
+
+}
+
+function portraitToLandscape() {
+
+    $('img').each(function () {
+        if($(this).attr('class') == "complete disabled" && ($.inArray($(this).attr('src'), imagesToCopy)) == -1) {
+            imagesToCopy.push($(this).attr('src'));
+        }
+    });
+    $('img').each(function () {
 
 
-         for(var i=0; i<imagesToCopy.length; i++){
+        for(var i=0; i<imagesToCopy.length; i++){
             if($(this).attr('src') == imagesToCopy[i]) {
-
                 $(this).addClass('complete');
                 $(this).addClass('disabled');
             }
         }
     });
-        if(leftCount == 0) {
-            $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
-            $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
-            $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
+    if($('.refresher').css('display') == 'none') {
+        $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
+        $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
+        $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
+    }
+}
+
+function landscapeToPortrait() {
+    $('img').each(function () {
+
+        if($(this).attr('class') == "complete disabled" && ($.inArray($(this).attr('src'), imagesToCopy)) == -1) {
+            imagesToCopy.push($(this).attr('src'));
+        }
+    });
+    $('img').each(function () {
+
+
+     for(var i=0; i<imagesToCopy.length; i++){
+        if($(this).attr('src') == imagesToCopy[i]) {
+
+            $(this).addClass('complete');
+            $(this).addClass('disabled');
         }
     }
-
-    function showMessage(type){
-        $('.'+type).animate({top:"0"}, 500);
+});
+    if($('.refresher').css('display') == 'none') {
+        $('.firstleft li img, .firstright li img, .horizontal.firstleft li img, .horizontal.firstright li img').addClass('complete disabled');
+        $('.secondleft li img, .secondright li img, .horizontal.secondleft li img, .horizontal.secondright li img').addClass('complete disabled');
+        $('.thirdleft li img, .thirdright li img, .horizontal.thirdleft li img, .horizontal.thirdright li img').addClass('complete disabled');
     }
+}
 
-    function hideMessage() {
-        for (i=0; i<myMessages.length; i++){
-         $('.' + myMessages[i]).animate({top:"-89"}, 500);
-     }
+function showMessage(type){
+    $('.'+type).animate({top:"0"}, 500);
+}
+
+function hideMessage() {
+    for (i=0; i<myMessages.length; i++){
+     $('.' + myMessages[i]).animate({top:"-89"}, 500);
  }
+}
 
- function hideAllMessages(){
+function hideAllMessages(){
    var messagesHeights = new Array(); 
    for (i=0; i<myMessages.length; i++){
      messagesHeights[i] = $('.' + myMessages[i]).outerHeight(); 
@@ -511,17 +608,52 @@ $('#matchnum1').on('submit', function(event) {
     $.ajax({
         url: 'matching.php',
         dataType: 'json',
-        contentType: 'application/json',
-        type: 'post',
-        success: function(response) {
-            leftCount = response.N;
-            rightCount = response.M;
-            JSONArray = response.E;
-            generateFirstPage();
-        }
-    });
+        contentType: 'application/json; charset=utf-8',
+        type: 'GET',
+        data: {
+           cmd: "generate",
+           N: $('#n1').val(),
+           M: $('#n2').val()
+       },
+       success: function(data) {
+        returnedData = data;
+        leftCount = data.N;
+        rightCount = data.M;
+        returnedArray = data.E;
+        generateFirstPage();
+    },
+    error: function(request,error) { 
+        console.log(request.responseText);
+    }
+});
 
 })
+
+$('#matchnum2').on('submit', function(event) {
+	imagesToCopy = [];
+    event.preventDefault();
+    $.ajax({
+        url: 'http://cs3226.comp.nus.edu.sg/matching.php',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        type: 'GET',
+        data: {
+            cmd: 'solve',
+            graph: JSON.stringify(returnedData)
+        },
+        success: function(response) {
+            if(response.num_match == matches && response.match_score == score) {
+                $('.successmsg').html(randomize(successMessages));
+                showMessage('success');
+            }
+            if(!wrong) {
+                $('.errormsg').html(randomize(errorMessages));
+                showMessage('error');
+
+            }
+        }
+    });
+});
 
 /************************************************************
 ************************ TABLE BUTTONS **********************
@@ -565,32 +697,12 @@ $('.firstleft, .secondleft').on('click', 'img', function()   {
                 id2.removeClass('topselected');
             }
         }
-        else if(id1.attr('src') != id2.attr('src')) {
-            $('.errormsg').html(randomize(errorMessages));
-            showMessage('error');
-            if(portrait) {
-                id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
-                id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('topselected');
-                id1.removeClass('botselected');
-                id2.removeClass('topselected');
-                id2.removeClass('botselected');
-            }
-        }
         else    {
-            determineLine();
-            requiredMatches--;
-            if(requiredMatches != 0) {
-                $('.successmsg').html(randomize(successMessages));
-                showMessage('success');
-            }
-            id1.addClass('complete');
-            id2.addClass('complete');
+            findImageIndex(id2, id1);
+            $('#msg').html(matches + " cat(s) have eaten, current total score is " + score);            
+            id1.addClass('complete');       
             id1.addClass('disabled');
+            id2.addClass('complete');       
             id2.addClass('disabled');
             if(portrait) {
                 id1.removeClass('leftselected');
@@ -606,23 +718,15 @@ $('.firstleft, .secondleft').on('click', 'img', function()   {
             }
         }
     }
-    if(requiredMatches == 0)    {
-        imagesToCopy = [];
-        $('.successmsg').html("Congratulations! You're a star!");
-        showMessage('success');
-        $('.refresher').hide();
-        $('.playagain').fadeIn();
-        $('.playagain button').css('display', 'block');
-    }
 });
 
 //RIGHT TABLE FOR PAIR MATCH AND SUPER SHAPES
 $('.firstright, .secondright').on('click', 'img', function()   {
     if(portrait) {
-        $(this).toggleClass('rightselected');
+        $(this).toggleClass('leftselected');
     }
     else {
-        $(this).toggleClass('botselected');
+        $(this).toggleClass('topselected');
     }
 
     count++;
@@ -635,50 +739,31 @@ $('.firstright, .secondright').on('click', 'img', function()   {
         id2 = $(this);
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class') && id1.attr('src') == id2.attr('src'))   {
             if(portrait) {
-                $(this).removeClass('rightselected');
+                $(this).removeClass('leftselected');
             }
             else {
-                $(this).removeClass('botselected');
+                $(this).removeClass('topselected');
             }
             return;
         }
         if(id1.closest('ul').attr('class') == id2.closest('ul').attr('class'))  {
             showMessage('warning');
             if(portrait) {
-                id1.removeClass('rightselected');
-                id2.removeClass('rightselected');
-            }
-            else {
-                id1.removeClass('botselected');
-                id2.removeClass('botselected');
-            }
-        }
-        else if(id1.attr('src') != id2.attr('src')) {
-            $('.errormsg').html(randomize(errorMessages));
-            showMessage('error');
-            if(portrait) {
                 id1.removeClass('leftselected');
-                id1.removeClass('rightselected');
                 id2.removeClass('leftselected');
-                id2.removeClass('rightselected');
+
             }
             else {
                 id1.removeClass('topselected');
-                id1.removeClass('botselected');
                 id2.removeClass('topselected');
-                id2.removeClass('botselected');
             }
         }
         else    {
-            determineLine();
-            requiredMatches--;
-            if(requiredMatches != 0) {
-                $('.successmsg').html(randomize(successMessages));
-                showMessage('success');
-            }
-            id1.addClass('complete');
-            id2.addClass('complete');
+            findImageIndex(id1, id2);
+            $('#msg').html(matches + " cat(s) have eaten, current total score is " + score);
+            id1.addClass('complete');       
             id1.addClass('disabled');
+            id2.addClass('complete');
             id2.addClass('disabled');
             if(portrait) {
                 id1.removeClass('leftselected');
@@ -694,13 +779,6 @@ $('.firstright, .secondright').on('click', 'img', function()   {
             }
         }
     }
-    if(requiredMatches == 0)    {
-        imagesToCopy = [];
-        $('.successmsg').html("Congratulations! You're a star!");
-        showMessage('success');
-        $('.refresher').hide();
-        $('.playagain').fadeIn();
-        $('.playagain button').css('display', 'block');
-    }
 });
+
 });

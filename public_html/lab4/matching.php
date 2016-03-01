@@ -1,30 +1,18 @@
-<html>
-<body>
-
 <?php
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
-$n = $m = $edgeNumber = "";
-$e = array();
 
-$finalArray = array('N' => $n, 'M' => $m, 'E' => $e);
-
-if (isset($_POST['generate'])) {
-	$n = $_POST["n"];
-	$m = $_POST["m"];
-	generateEdges();
-	echo json_encode($finalArray);
+if (isset($_GET['cmd'])) {
+	$n = $_GET["N"];
+	$m = $_GET["M"];
+	echo json_encode(generateEdges($n, $m));
 }
 
-function generateEdges() {
-	$edgeNumber = rand($n,$n*2);
-	for($i=0; i<$edgeNumber; i++) {
-		array_push($e, array(rand(0,$n), rand(0,$m), rand(1,100)));
+function generateEdges($n, $m) {
+	$edgeNumber = rand($n,$n+2);
+	$e = array();
+	for($i=0; $i<$edgeNumber; $i++) {
+		array_push($e, array(rand(0,$n-1), rand(0,$m-1), rand(1,100)));
 	}
+	return $finalArray = array('N' => $n, 'M' => $m, 'E' => $e);
 }
 
 ?>
-
-<script src="js/lab4.js"></script>
-</body>
-</html>
