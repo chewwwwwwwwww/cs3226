@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "TA"       
-AuthUserFile "/home/a0110616/public_html/lab4/passwd"
-Require user TA
