@@ -1,0 +1,51 @@
+body {
+	background-image: url("../images/dashboard.jpg");
+	font-family: 'McLaren', cursive;
+}
+table, th, td {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+td {font-size: 130%;}
+h1 {text-align: center;}
+.userheader {margin-left: 25px;}
+.graphsheader {margin-left: 100px;}
+
+a.btn.btn-info {
+	background: rgba(44,62,80, 1);
+	color: white !important;
+	border: none;
+	padding: 15px 32px;
+}
+a.btn.btn-info:hover {
+	background-color: #4682B4 !important;
+	font-weight: bold;
+}
+
+.navbar-default .navbar-brand {
+	color: white;
+	z-index:0;
+}
+.navbar, .navbar-default{
+	background: rgba(44,62,80, 1);
+	border: 0 !important;
+	box-shadow:none;
+	z-index:0;
+}
+.navbar-default .navbar-toggle,  {
+	border-color: #fff;
+	z-index:0;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+	z-index:0;
+}
+.navbar-default .navbar-collapse {
+	border: 0 !important;
+	box-shadow:none;
+	z-index:0;
+}

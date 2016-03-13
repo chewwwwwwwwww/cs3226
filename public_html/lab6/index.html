@@ -1,0 +1,126 @@
+ <!DOCTYPE html>
+<!--DONE BY: BRANDON CHEW HUI TECK A0110616W -->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/lab6.css">
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=McLaren'>
+	<link rel="icon" href="images/6.ico">
+	<title>SmartMatch</title>
+</head>
+
+<body>
+
+	<div class='row'>
+		<div class='navbar navbar-default navbar-static-top'>
+			<div class='container'>
+				<div class='navbar-header'>
+					<a href='#' class='navbar-brand'>SmartMatch</a>
+					<button type='button' id='navbutton' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+						<span class='sr-only'>Toggle Navigation</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+				</div>
+				<ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
+					<li><button type="button" class="homebutton">Home</button></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="error message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3 class='errormsg'></h3>
+	</div>
+
+	<div class="warning message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3>Wait, I must warn you! Choose one from each side!</h3>
+	</div>
+
+	<div class="success message">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<h3 class='successmsg'></h3>
+	</div>
+
+	
+	<div id="homepage" class="homedisplay"> 
+		<div class="col-sm-12">			
+			<div class='welcomemsg'>
+				<h1 class='hidden-xs'>Welcome to SmartMatch</h1>
+				<div class="col-sm-12">
+					<div class="firstnum">
+						<form id="matchnum1">
+							Graph ID = <input type="number" min="1" max="9" id="n1" name="graph_id" id="n1" required> 
+							<input type="Submit" name="generate" value="Play!">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class='footer hidden-xs'>
+			<p>Credits to <a href="http://www.vecteezy.com/vector-art/62489-animal-cartoons-pack">Animals Cartoons Pack</a> and <a href="http://www.vecteezy.com/vector-art/63558-free-food-graphics">Free Food Graphics</a> for the images .</p>
+		</footer>
+	</div>
+
+	
+	<div id="PairMatch">
+		<div class='row'>
+			<div class='col-sm-12'>
+				<i class='glyphicon glyphicon-refresh refresher'></i>
+				<div class='playagain'>
+					<button type='button'>Play Again?</button>
+				</div>
+				
+
+			</div>
+		</div>
+
+		<div class='row vertical'>
+			<div class='col-sm-12'>
+				<table class="first">
+					<tr>
+						<td>
+							<ul class="firstleft">
+							</ul>
+						</td>
+						<td><canvas id="canvas1" resize ></canvas></td>
+						<td>
+							<ul class="firstright">
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+
+		<div class='tableh first'>
+			<ul class="horizontal firstleft">
+			</ul>
+			<div><canvas id="canvas1h" resize ></canvas></div>
+			<ul class="horizontal firstright">
+			</ul>
+		</div>	
+		<p id="msg"></p><br><br><br>
+
+		<form id="matchnum2">
+			<input type="Submit" name="submit" value="Submit">
+		</form>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="js/lab6.js"></script>
+
+</body>
+
+</html>
